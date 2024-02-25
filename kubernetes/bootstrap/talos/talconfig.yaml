@@ -6,13 +6,13 @@ talosVersion: v1.6.5
 kubernetesVersion: v1.29.2
 
 clusterName: &cluster home-kubernetes
-endpoint: https://:6443
+endpoint: https://192.168.100.55:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
-  - ""
+  - "192.168.100.55"
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 cniConfig:
@@ -36,7 +36,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.100.1"
         vip:
-          ip: ""
+          ip: "192.168.100.55"
   - hostname: "dell-2"
     ipAddress: "192.168.100.225"
     installDiskSelector:
@@ -54,12 +54,11 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.100.1"
         vip:
-          ip: ""
+          ip: "192.168.100.55"
   - hostname: "dell-3"
     ipAddress: "192.168.100.180"
     installDiskSelector:
-      size: "<= 600GB"
-      type: ssd
+      serial: "blah"
     talosImageURL: factory.talos.dev/installer/
     controlPlane: true
     networkInterfaces:
@@ -72,7 +71,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.100.1"
         vip:
-          ip: ""
+          ip: "192.168.100.55"
 
 patches:
   # Configure containerd
