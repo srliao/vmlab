@@ -1,0 +1,3 @@
+---
+providerRegex: ^(dell-1|dell-2|dell-3)$
+bypassDnsResolution: true
