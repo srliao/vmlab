@@ -1,0 +1,23 @@
+---
+version: "3"
+
+tasks:
+  namespace:
+    aliases: [ns]
+    desc: Create a new namespace from a template
+    requires:
+      vars: [cluster, ns]
+    silent: true
+    cmds:
+      - cp -r /{{.ROOT_DIR}}/.task/create/templates/namespace /{{.ROOT_DIR}}/kubernetes/{{.cluster}}/apps/{{.ns}}/
+      - grep -lR 'NAMESPACE' /{{.ROOT_DIR}}/kubernetes/{{.cluster}}/apps/{{.ns}}/ | xargs -I% sed -i 's/${NAMESPACE}/{{.ns}}/g' %
+
+  app:
+    desc: Create a new app from template
+    requires:
+      vars: [cluster, ns, app]
+    silent: true
+    cmds:
+      - cp -r /{{.ROOT_DIR}}/.task/create/templates/app /{{.ROOT_DIR}}/kubernetes/{{.cluster}}/apps/{{.ns}}/{{.app}}/
+      - grep -lR 'APP' /{{.ROOT_DIR}}/kubernetes/{{.cluster}}/apps/{{.ns}}/{{.app}}/ | xargs -I% sed -i 's/${APP}/{{.app}}/g' %
+      - grep -lR 'NAMESPACE' /{{.ROOT_DIR}}/kubernetes/{{.cluster}}/apps/{{.ns}}/{{.app}}/ | xargs -I% sed -i 's/${NAMESPACE}/{{.ns}}/g' %
