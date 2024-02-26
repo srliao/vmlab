@@ -79,12 +79,27 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "redlib.${SECRET_DOMAIN}"
         hosts:
           - host: &host '{{ .Release.Name }}.winterspring.ca'
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+      internal:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host "{{ .Release.Name }}-internal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
                 service:
                   name: main
                   port: http
