@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./webhooks/ks.yaml
-  - ./discord-notification/ks.yaml
+  # disabled for now
+  # - ./discord-notification/ks.yaml
