@@ -104,6 +104,13 @@ tasks:
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
 
+  disks:
+    desc: run disks command
+    cmds:
+      - talosctl disks -e 192.168.100.118 -n 192.168.100.118 --talosconfig clusterconfig/talosconfig --insecure
+      - talosctl disks -e 192.168.100.225 -n 192.168.100.225 --talosconfig clusterconfig/talosconfig --insecure
+      - talosctl disks -e 192.168.100.180 -n 192.168.100.180 --talosconfig clusterconfig/talosconfig --insecure
+
   .reset:
     internal: true
     cmd: rm -rf {{.TALOS_DIR}}
