@@ -24,7 +24,7 @@ nodes:
     installDiskSelector:
       size: "<= 600GB"
       type: ssd
-    talosImageURL: factory.talos.dev/installer/
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
       - interface: eth0
@@ -42,7 +42,7 @@ nodes:
     installDiskSelector:
       size: "<= 600GB"
       type: ssd
-    talosImageURL: factory.talos.dev/installer/
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
       - interface: eth0
@@ -60,7 +60,7 @@ nodes:
     installDiskSelector:
       size: "<= 600GB"
       type: ssd
-    talosImageURL: factory.talos.dev/installer/
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
       - interface: eth0
