@@ -1,6 +1,8 @@
 ---
 originRequest:
   originServerName: "external.${SECRET_DOMAIN}"
+  http2Origin: true
+  noTLSVerify: true
 
 ingress:
   - hostname: "${SECRET_DOMAIN}"
