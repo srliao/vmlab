@@ -14,3 +14,4 @@ resources:
   - ./xenitab.yaml
   - ./piraeus.yaml
   - ./rook-ceph.yaml
+  - ./k8tz.yaml
