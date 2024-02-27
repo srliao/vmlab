@@ -48,6 +48,11 @@ spec:
               REDLIB_DEFAULT_WIDE: on
               REDLIB_DEFAULT_USE_HLS: on
               REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: on
+              REDLIB_DEFAULT_THEME: doomone
+              REDLIB_DEFAULT_FRONT_PAGE: all
+              REDLIB_DEFAULT_LAYOUT: compact
+              REDLIB_DEFAULT_COMMENT_SORT: top
+              REDLIB_DEFAULT_SUBSCRIPTIONS: bapcsalescanada+teslamotors+ontario+apple+canada+askreddit+PersonalFinanceCanada
 
             resources:
               requests:
