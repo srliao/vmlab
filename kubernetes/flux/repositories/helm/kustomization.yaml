@@ -13,3 +13,4 @@ resources:
   - ./stakater.yaml
   - ./xenitab.yaml
   - ./piraeus.yaml
+  - ./rook-ceph.yaml
