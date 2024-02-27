@@ -1,0 +1,68 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  KUBECONFORM_SCRIPT: "{{.SCRIPTS_DIR}}/kubeconform.sh"
+
+tasks:
+
+  resources:
+    desc: Gather common resources in your cluster, useful when asking for support
+    cmds:
+      - for: { var: resource }
+        cmd: kubectl get {{.ITEM}} {{.CLI_ARGS | default "-A"}}
+    vars:
+      resource: >-
+        nodes
+        gitrepositories
+        kustomizations
+        helmrepositories
+        helmreleases
+        certificates
+        certificaterequests
+        ingresses
+        pods
+
+  kubeconform:
+    desc: Validate Kubernetes manifests with kubeconform
+    cmd: bash {{.KUBECONFORM_SCRIPT}} {{.KUBERNETES_DIR}}
+    preconditions:
+      - { msg: "Missing kubeconform script", sh: "test -f {{.KUBECONFORM_SCRIPT}}" }
+
+  .reset:
+    internal: true
+    cmd: rm -rf {{.KUBERNETES_DIR}}
+
+  wait-pod-running:
+    aliases: [waitr]
+    internal: true
+    desc: Wait for a job's pod to change its status to running
+    requires:
+      vars: [namespace, name]
+    cmds:
+      - until [[ $(kubectl -n {{.namespace}} get pod {{.name}} -o jsonpath='{.items[*].status.phase}') == "Running" ]]; do sleep 1; done
+
+  wait-finish:
+    internal: true
+    desc: Wait for a job to finish
+    requires:
+      vars: [ns, type, name]
+    cmd: |-
+      until kubectl -n {{.ns}} wait {{.type}}/{{.name}} --for condition=complete --timeout=2s; do
+        echo "{{.name}} is still running, logs:" && kubectl -n {{.ns}} logs {{.type}}/{{.name}} --since 2s -f || true;
+      done
+
+  watch:
+    desc: Watches a namespace to monitor for changes
+    requires:
+      vars: [ns]
+    cmd: viddy -n1 kubectl get all -n {{.ns}}
+
+  delete-failed-pods:
+    desc: Deletes pods with Failed phase
+    cmd: kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
+
+  delete-succeeded-pods:
+    desc: Deletes pods with Succeeded phase
+    cmd: kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true

@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+includes:
+  talos:
+    internal: true
+    taskfile: ../talos
+  flux:
+    internal: true
+    taskfile: ../flux
+
+tasks:
+  talos:
+    desc: bootstrap the talos cluster
+    cmds:
+      - talos:bootstrap
+
+  flux-pre-check:
+    desc: check if flux is ready to be installed
+    cmds:
+      - flux check -pre
+
+  flux-github-secrets:
+    desc: deploy flux github keys
+    cmds:
+      - flux:github-deploy-key
+
+  flux:
+    desc: bootstrap flux
+    cmds:
+      - flux:bootstrap
+

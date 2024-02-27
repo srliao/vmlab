@@ -6,11 +6,65 @@ vars:
   TALOS_DIR: "{{.KUBERNETES_DIR}}/bootstrap/talos"
   TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talhelper.sops.yaml"
   TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
+  TALOS_CONFIG_FILE: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
 
 env:
   TALOSCONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
 
 tasks:
+
+  ### UTILS ###
+
+  reboot:
+    desc: Reboot nodes based on Kubernetes InternalIP. Assumes only 1 IP in InternalIP, and the IP known to Kubernetes is the same used by `talosctl`.
+    requires:
+      vars: [node]
+    cmd: |-
+      talosctl reboot \
+          --talosconfig /{{.ROOT_DIR}}/kubernetes/talos/clusterconfig/talosconfig \
+          --nodes $(kubectl get nodes {{.node}} -o yaml | yq '.status.addresses | map(select(.type == "InternalIP")) | .[].address')
+
+  disks:
+    desc: run disks command
+    cmds:
+      - talosctl disks -e 192.168.100.118 -n 192.168.100.118 --talosconfig {{.TALOS_CONFIG_FILE}}
+      - talosctl disks -e 192.168.100.225 -n 192.168.100.225 --talosconfig {{.TALOS_CONFIG_FILE}}
+      - talosctl disks -e 192.168.100.180 -n 192.168.100.180 --talosconfig {{.TALOS_CONFIG_FILE}}
+
+  upgrade-talos:
+    desc: Upgrade talos on a node
+    cmd: talosctl --nodes {{.node}} upgrade --image {{.image}} --preserve=true --reboot-mode=default
+    requires:
+      vars: ["node", "image"]
+    preconditions:
+      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+
+  upgrade-k8s:
+    desc: Upgrade k8s on a node
+    cmd: talosctl --nodes {{.node}} upgrade-k8s --to {{.to}}
+    requires:
+      vars: ["node", "to"]
+    preconditions:
+      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+
+  fetch-kubeconfig:
+    desc: Generate talos kubeconfig
+    dir: "{{.TALOS_DIR}}"
+    cmd: until talhelper gencommand kubeconfig --extra-flags "--force" | bash; do sleep 10; done
+
+  soft-nuke:
+    desc: Resets nodes back to maintenance mode so you can re-deploy again straight after
+    prompt: This will destroy your cluster and reset the nodes back to maintenance mode... continue?
+    dir: "{{.TALOS_DIR}}"
+    cmd: talhelper gencommand reset --extra-flags "--reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false" | bash
+
+  hard-nuke:
+    desc: Resets nodes back completely and reboots them
+    prompt: This will destroy your cluster and reset the nodes... continue?
+    dir: "{{.TALOS_DIR}}"
+    cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
+
+  ### BOOTSTRAP RELATED TASKS ###
 
   bootstrap:
     desc: Bootstrap the Talos cluster
@@ -70,47 +124,3 @@ tasks:
       - until kubectl --kubeconfig {{.KUBECONFIG_FILE}} wait --for=condition=Ready nodes --all --timeout=600s; do sleep 10; done
     preconditions:
       - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG_FILE}}" }
-
-  upgrade-talos:
-    desc: Upgrade talos on a node
-    cmd: talosctl --nodes {{.node}} upgrade --image {{.image}} --preserve=true --reboot-mode=default
-    requires:
-      vars: ["node", "image"]
-    preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
-
-  upgrade-k8s:
-    desc: Upgrade k8s on a node
-    cmd: talosctl --nodes {{.node}} upgrade-k8s --to {{.to}}
-    requires:
-      vars: ["node", "to"]
-    preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
-
-  fetch-kubeconfig:
-    desc: Generate talos kubeconfig
-    dir: "{{.TALOS_DIR}}"
-    cmd: until talhelper gencommand kubeconfig --extra-flags "--force" | bash; do sleep 10; done
-
-  soft-nuke:
-    desc: Resets nodes back to maintenance mode so you can re-deploy again straight after
-    prompt: This will destroy your cluster and reset the nodes back to maintenance mode... continue?
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand reset --extra-flags "--reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false" | bash
-
-  hard-nuke:
-    desc: Resets nodes back completely and reboots them
-    prompt: This will destroy your cluster and reset the nodes... continue?
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
-
-  disks:
-    desc: run disks command
-    cmds:
-      - talosctl disks -e 192.168.100.118 -n 192.168.100.118 --talosconfig clusterconfig/talosconfig --insecure
-      - talosctl disks -e 192.168.100.225 -n 192.168.100.225 --talosconfig clusterconfig/talosconfig --insecure
-      - talosctl disks -e 192.168.100.180 -n 192.168.100.180 --talosconfig clusterconfig/talosconfig --insecure
-
-  .reset:
-    internal: true
-    cmd: rm -rf {{.TALOS_DIR}}
