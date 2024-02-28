@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${APP}
+spec:
+  storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+  accessModes:
+    - "${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"
+  volumeMode: "${VOLSYNC_VOLUMEMODE:-Filesystem}"
+  resources:
+    requests:
+      storage: "${VOLSYNC_CAPACITY:-1Gi}"
+  dataSourceRef:
+    apiGroup: volsync.backube
+    kind: ReplicationDestination
+    name: ${APP}-bootstrap
