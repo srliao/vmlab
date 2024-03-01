@@ -8,7 +8,6 @@ resources:
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./metrics-server.yaml
-  - ./openebs.yaml
   - ./postfinance.yaml
   - ./stakater.yaml
   - ./xenitab.yaml
