@@ -6,28 +6,45 @@ includes:
   talos:
     internal: true
     taskfile: ../talos
+    dir: ../talos
   flux:
     internal: true
     taskfile: ../flux
+    dir: ../flux
 
 tasks:
+  all:
+    desc: bootstrap from scratch (talos needs to be in maintenance mode)
+    prompt: this will recreate the cluster from scratch, are you sure?
+    cmds:
+      - task: talos
+      - task: disks
+      - task: flux-pre-check
+      - task: flux-github-secrets
+      - task: flux
+
   talos:
     desc: bootstrap the talos cluster
     cmds:
-      - talos:bootstrap
+      - task: talos:bootstrap
+
+  disks:
+    desc: reset disks
+    cmds:
+      - task: rook:wipe-nodes-all
 
   flux-pre-check:
     desc: check if flux is ready to be installed
     cmds:
-      - flux check -pre
+      - flux check --pre
 
   flux-github-secrets:
     desc: deploy flux github keys
     cmds:
-      - flux:github-deploy-key
+      - task: flux:github-deploy-key
 
   flux:
     desc: bootstrap flux
     cmds:
-      - flux:bootstrap
+      - task: flux:bootstrap
 

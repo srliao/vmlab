@@ -21,7 +21,7 @@ tasks:
       vars: [node]
     cmd: |-
       talosctl reboot \
-          --talosconfig /{{.ROOT_DIR}}/kubernetes/talos/clusterconfig/talosconfig \
+          --talosconfig {{.TALOS_CONFIG_FILE}} \
           --nodes $(kubectl get nodes {{.node}} -o yaml | yq '.status.addresses | map(select(.type == "InternalIP")) | .[].address')
 
   disks:

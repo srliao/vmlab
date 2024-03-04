@@ -13,6 +13,77 @@ includes:
     taskfile: ../talos
 
 tasks:
+
+## MAIN SCRIPTS
+  wipe-nodes-all:
+    desc: Wipe all nodes in cluster
+    dir: /{{.ROOT_DIR}}/.task/rook
+    prompt: This will destroy wipe all NVME in the cluster... continue?
+    cmds:
+      - task: wipe-node
+        vars:
+          node: dell-1
+          disk: /dev/disk/by-id/nvme-KXG60ZNV1T02_NVMe_KIOXIA_1024GB_X99FA0UXF7KL
+      - task: wipe-node
+        vars:
+          node: dell-2
+          disk:  /dev/disk/by-id/nvme-Lexar_SSD_NM790_1TB_NHN751W100544P2202
+      - task: wipe-node
+        vars:
+          node: dell-3
+          disk:  /dev/disk/by-id/nvme-KXG60ZNV1T02_NVMe_KIOXIA_1024GB_X99FA02EF7KL
+
+  force-delete-cluster:
+    desc: |-
+      Sometimes Rook seems to fail applying the cluster and want to delete it before it even gets anything set up, this Task will force delete all finalizers to delete all unready Ceph resources.
+    dir: /{{.ROOT_DIR}}/.task/rook
+    cmds:
+      - kubectl --namespace rook-ceph patch cephcluster rook-ceph --type merge -p '{"spec":{"cleanupPolicy":{"confirmation":"yes-really-destroy-data"}}}' || true
+      - helm uninstall -n rook-ceph rook-ceph-cluster && true || true
+      - |-
+        for CRD in $(kubectl get crd -n rook-ceph | awk '/ceph.rook.io/ {print $1}'); do
+            kubectl get -n rook-ceph "$CRD" -o name | \
+            xargs -I {} kubectl patch -n rook-ceph {} --type merge -p '{"metadata":{"finalizers": []}}' && true || true
+        done
+      - |-
+        kubectl -n rook-ceph patch configmap rook-ceph-mon-endpoints --type merge -p '{"metadata":{"finalizers": []}}' && true || true
+        kubectl -n rook-ceph patch secrets rook-ceph-mon --type merge -p '{"metadata":{"finalizers": []}}' && true || true
+
+  reinstall:
+    desc: |-
+      Assuming Flux and resource names, suspends master ks.yaml (Flux Kustomization), suspends ks.yaml for Rook-Ceph and cluster,
+      suspends HelmReleases for Rook-Ceph and cluster, deletes cluster HelmRelease, patches Ceph CR and cm/secret finalizers, removes Rook-Ceph HR and namespace.
+      Then, reconcile master, Rook-Ceph and cluster ks.yaml.
+      Attempts to delete assuming the following works: https://github.com/rook/rook/blob/master/design/ceph/ceph-cluster-cleanup.md
+    prompt: This will completely reinstall rook-ceph and wipe all data on the drives... Continue?
+    dir: /{{.ROOT_DIR}}/.task/rook
+    vars:
+      nodes:
+        sh: kubectl get nodes -o name | awk -F "/" '{print $2}'
+    cmds:
+        # stop Flux from maintaining rook-ceph
+      - flux suspend ks flux
+      - flux suspend ks rook-ceph
+      - flux suspend ks rook-ceph-cluster
+
+      # Wipe rook-ceph and all disks
+      - task: force-delete-cluster
+      - helm uninstall -n rook-ceph rook-ceph && true || true
+      - kubectl get namespaces rook-ceph && until kubectl delete namespaces rook-ceph; do kubectl get namespaces rook-ceph -o jsonpath="{.status}"; done || true
+      # - for: { var: nodes }
+      #   task: wipe-state
+      #   vars: { node: '{{.ITEM}}' }
+      - task: wipe-nodes-main
+
+
+      # Install (add back namespace)
+      - kubectl apply -f /{{.ROOT_DIR}}/kubernetes/apps/rook-ceph/namespace.yaml
+      - flux suspend ks flux && flux resume ks flux
+      - flux suspend ks rook-ceph && flux resume ks rook-ceph
+      - flux suspend ks rook-ceph-cluster && flux resume ks rook-ceph-cluster
+
+## HELPERS
+
   toolbox:
     aliases: [tb]
     desc: Launches a shell of a Rook Ceph Toolbox pod deployment, then cleans up.
@@ -89,69 +160,3 @@ tasks:
         vars: { node: '{{.node}}' }
       - task: talos:reboot
         vars: { node: '{{.node}}' }
-
-  wipe-nodes-main:
-    desc: Wipe all nodes in cluster 'main'
-    dir: /{{.ROOT_DIR}}/.task/rook
-    cmds:
-      - task: wipe-node
-        vars:
-          node: dell-1
-          disk: /dev/disk/by-id/nvme-KXG60ZNV1T02_NVMe_KIOXIA_1024GB_X99FA0UXF7KL
-      - task: wipe-node
-        vars:
-          node: dell-2
-          disk:  /dev/disk/by-id/nvme-Lexar_SSD_NM790_1TB_NHN751W100544P2202
-      - task: wipe-node
-        vars:
-          node: dell-3
-          disk:  /dev/disk/by-id/nvme-KXG60ZNV1T02_NVMe_KIOXIA_1024GB_X99FA02EF7KL
-
-  force-delete-cluster:
-    desc: |-
-      Sometimes Rook seems to fail applying the cluster and want to delete it before it even gets anything set up, this Task will force delete all finalizers to delete all unready Ceph resources.
-    dir: /{{.ROOT_DIR}}/.task/rook
-    cmds:
-      - kubectl --namespace rook-ceph patch cephcluster rook-ceph --type merge -p '{"spec":{"cleanupPolicy":{"confirmation":"yes-really-destroy-data"}}}' || true
-      - helm uninstall -n rook-ceph rook-ceph-cluster && true || true
-      - |-
-        for CRD in $(kubectl get crd -n rook-ceph | awk '/ceph.rook.io/ {print $1}'); do
-            kubectl get -n rook-ceph "$CRD" -o name | \
-            xargs -I {} kubectl patch -n rook-ceph {} --type merge -p '{"metadata":{"finalizers": []}}' && true || true
-        done
-      - |-
-        kubectl -n rook-ceph patch configmap rook-ceph-mon-endpoints --type merge -p '{"metadata":{"finalizers": []}}' && true || true
-        kubectl -n rook-ceph patch secrets rook-ceph-mon --type merge -p '{"metadata":{"finalizers": []}}' && true || true
-
-  reinstall:
-    desc: |-
-      Assuming Flux and resource names, suspends master ks.yaml (Flux Kustomization), suspends ks.yaml for Rook-Ceph and cluster,
-      suspends HelmReleases for Rook-Ceph and cluster, deletes cluster HelmRelease, patches Ceph CR and cm/secret finalizers, removes Rook-Ceph HR and namespace.
-      Then, reconcile master, Rook-Ceph and cluster ks.yaml.
-      Attempts to delete assuming the following works: https://github.com/rook/rook/blob/master/design/ceph/ceph-cluster-cleanup.md
-    prompt: This will completely reinstall rook-ceph and wipe all data on the drives... Continue?
-    dir: /{{.ROOT_DIR}}/.task/rook
-    vars:
-      nodes:
-        sh: kubectl get nodes -o name | awk -F "/" '{print $2}'
-    cmds:
-        # stop Flux from maintaining rook-ceph
-      - flux suspend ks flux
-      - flux suspend ks rook-ceph
-      - flux suspend ks rook-ceph-cluster
-
-      # Wipe rook-ceph and all disks
-      - task: force-delete-cluster
-      - helm uninstall -n rook-ceph rook-ceph && true || true
-      - kubectl get namespaces rook-ceph && until kubectl delete namespaces rook-ceph; do kubectl get namespaces rook-ceph -o jsonpath="{.status}"; done || true
-      # - for: { var: nodes }
-      #   task: wipe-state
-      #   vars: { node: '{{.ITEM}}' }
-      - task: wipe-nodes-main
-
-
-      # Install (add back namespace)
-      - kubectl apply -f /{{.ROOT_DIR}}/kubernetes/apps/rook-ceph/namespace.yaml
-      - flux suspend ks flux && flux resume ks flux
-      - flux suspend ks rook-ceph && flux resume ks rook-ceph
-      - flux suspend ks rook-ceph-cluster && flux resume ks rook-ceph-cluster
