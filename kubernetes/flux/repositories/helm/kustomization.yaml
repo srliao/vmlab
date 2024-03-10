@@ -16,3 +16,4 @@ resources:
   - ./k8tz.yaml
   - ./external-secrets.yaml
   - ./backube.yaml
+  - ./democratic-csi.yaml
