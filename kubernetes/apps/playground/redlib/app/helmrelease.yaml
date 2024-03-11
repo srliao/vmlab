@@ -80,6 +80,7 @@ spec:
 
     service:
       app:
+        controller: redlib
         ports:
           http:
             port: *port
