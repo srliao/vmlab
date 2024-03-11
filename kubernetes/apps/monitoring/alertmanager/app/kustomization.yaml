@@ -8,6 +8,8 @@ resources:
 configMapGenerator:
   - name: alertmanager-configmap
     files:
-      - alertmanager.yml=./config/alertmanager.yml
+      - config/alertmanager.yml
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

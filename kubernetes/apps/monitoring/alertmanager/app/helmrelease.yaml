@@ -43,10 +43,20 @@ spec:
           app:
             image:
               repository: quay.io/prometheus/alertmanager
-              tag: v0.26.0
+              tag: v0.27.0
             ports:
               - name: http
                 containerPort: 9093
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             resources:
               requests:
                 cpu: 11m
@@ -83,6 +93,11 @@ spec:
               - *host
 
     persistence:
+      config:
+        type: configMap
+        name: alertmanager-configmap
+        globalMounts:
+          - path: /etc/alertmanager
       secrets:
         type: secret
         name: alertmanager-secret
