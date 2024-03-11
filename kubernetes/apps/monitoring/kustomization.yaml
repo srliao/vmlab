@@ -7,6 +7,6 @@ resources:
   # Flux Kustomizations
   - ./kube-prometheus-stack/ks.yaml
   - ./thanos/ks.yaml
-  # - ./alertmanager/ks.yaml
+  - ./alertmanager/ks.yaml
   - ./grafana/ks.yaml
   - ./exporters/ks.yaml
