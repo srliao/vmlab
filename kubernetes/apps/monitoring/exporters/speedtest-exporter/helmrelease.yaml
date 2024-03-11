@@ -42,6 +42,7 @@ spec:
                 memory: 100Mi
     service:
       app:
+        controller: speedtest-exporter
         enabled: false
       metrics:
         enabled: true
