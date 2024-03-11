@@ -1,0 +1,135 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: hajimari
+  namespace: services
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: hajimari
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: hajimari-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  values:
+    controller:
+      replicas: 3
+      strategy: RollingUpdate
+    hajimari:
+      title: Dashboard
+      lightTheme: tron
+      darkTheme: tron
+      alwaysTargetBlank: true
+      showGreeting: false
+      showAppGroups: true
+      showAppStatus: true
+      showAppUrls: false
+      showAppInfo: true
+      showBookmarkGroups: true
+      showGlobalBookmarks: false
+      defaultEnable: true
+      defaultAppIcon: mdi:application
+      defaultSearchProvider: Google
+      namespaceSelector:
+        matchNames:
+          - home-automation
+          - monitoring
+          - media
+          - services
+      customApps:
+        - name: NextDNS
+          url: "https://nextdns.com"
+          icon: dns
+        - name: Minio
+          url: "https://minio.lan"
+          icon: box
+      globalBookmarks:
+        - group: Dev
+          bookmarks:
+            - name: GitHub
+              url: "https://github.com"
+            - name: CyberChef
+              url: "https://gchq.github.io/CyberChef"
+        - group: Cloud
+          bookmarks:
+            - name: Google Drive
+              url: "https://drive.google.com"
+            - name: Gmail
+              url: "https://gmail.com"
+            - name: Cloudflare
+              url: "https://dash.cloudflare.com"
+      searchProviders:
+        - name: Google
+          token: g
+          icon: simple-icons:google
+          searchUrl: https://www.google.com/search?q={query}
+          url: https://www.google.com
+        - name: DuckDuckGo
+          token: d
+          icon: simple-icons:duckduckgo
+          searchUrl: https://duckduckgo.com/?q={query}
+          url: https://duckduckgo.com
+        - name: IMDB
+          token: i
+          icon: simple-icons:imdb
+          searchUrl: https://www.imdb.com/find?q={query}
+          url: https://www.imdb.com
+        - name: Reddit
+          token: r
+          icon: simple-icons:reddit
+          searchUrl: https://www.reddit.com/search?q={query}
+          url: https://www.reddit.com
+        - name: YouTube
+          token: "y"
+          icon: simple-icons:youtube
+          searchUrl: https://www.youtube.com/results?search_query={query}
+          url: https://www.youtube.com
+        - name: Spotify
+          token: s
+          icon: simple-icons:spotify
+          searchUrl: hhttps://open.spotify.com/search/{query}
+          url: https://open.spotify.com
+        - name: WolframAlpha
+          token: w
+          icon: simple-icons:wolfram
+          searchUrl: https://www.wolframalpha.com/input?i={query}
+          url: https://www.wolframalpha.com
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "internal-nginx"
+        annotations:
+          hajimari.io/enable: "false"
+        hosts:
+          - host: "hajimari.${EXTERNAL_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "hajimari.${EXTERNAL_DOMAIN}"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "hajimari-settings"
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 64M
