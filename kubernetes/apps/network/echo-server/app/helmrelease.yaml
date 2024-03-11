@@ -70,11 +70,13 @@ spec:
             runAsNonRoot: true
     service:
       app:
+        controller: echo-server
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
+        serviceName: echo-server
         enabled: true
     ingress:
       app:
