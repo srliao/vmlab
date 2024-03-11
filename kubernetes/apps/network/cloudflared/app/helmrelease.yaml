@@ -92,7 +92,7 @@ spec:
             port: *port
     serviceMonitor:
       app:
-        controller: cloudflared
+        serviceName: cloudflared
         enabled: true
     persistence:
       config:
