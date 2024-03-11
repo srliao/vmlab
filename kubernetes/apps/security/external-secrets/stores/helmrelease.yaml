@@ -141,6 +141,7 @@ spec:
           - path: *configDir
     service:
       app:
+        controller: onepassword-connect
         ports:
           http:
             port: *apiPort
