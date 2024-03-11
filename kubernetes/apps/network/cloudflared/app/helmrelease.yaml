@@ -91,7 +91,8 @@ spec:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
+        controller: cloudflared
         enabled: true
     persistence:
       config:
