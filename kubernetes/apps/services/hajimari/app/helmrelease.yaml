@@ -114,13 +114,13 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: "hajimari.${EXTERNAL_DOMAIN}"
+          - host: "hajimari.winterspring.ca"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "hajimari.${EXTERNAL_DOMAIN}"
+              - "hajimari.winterspring.ca"
     podAnnotations:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     persistence:
