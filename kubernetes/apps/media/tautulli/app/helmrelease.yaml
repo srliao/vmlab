@@ -52,6 +52,7 @@ spec:
 
     service:
       app:
+        controller: tautulli
         ports:
           http:
             port: 8181
@@ -66,7 +67,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
