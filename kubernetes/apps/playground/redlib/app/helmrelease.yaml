@@ -36,12 +36,12 @@ spec:
           matchLabels:
             app.kubernetes.io/name: *app
     controllers:
-      main:
+      redlib:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
-          main:
+          app:
             image:
               repository: quay.io/redlib/redlib
               tag: latest
@@ -79,12 +79,12 @@ spec:
                 enabled: false
 
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:

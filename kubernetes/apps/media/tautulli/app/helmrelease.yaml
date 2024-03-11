@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      tautulli:
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -37,7 +37,7 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/tautulli
               tag: 2.13.4@sha256:d925cbb3ff9d8da8e926953d320137a5b3819f31d0ab3e06350ae995b442594f
@@ -51,13 +51,13 @@ spec:
                 memory: 512Mi
 
     service:
-      main:
+      app:
         ports:
           http:
             port: 8181
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:

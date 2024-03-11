@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      alertmanager:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -40,7 +40,7 @@ spec:
                 - path: /alertmanager
 
         containers:
-          main:
+          app:
             image:
               repository: quay.io/prometheus/alertmanager
               tag: v0.26.0
@@ -61,13 +61,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
         ports:
           http:
             port: 9093
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:

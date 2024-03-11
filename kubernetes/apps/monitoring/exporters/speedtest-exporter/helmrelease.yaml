@@ -25,12 +25,12 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      speedtest-exporter:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/miguelndecarvalho/speedtest-exporter
               tag: v3.5.4
@@ -41,7 +41,7 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      main:
+      app:
         enabled: false
       metrics:
         enabled: true

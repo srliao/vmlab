@@ -25,12 +25,12 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      onepassword-connect:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/1password/connect-api
               tag: 1.7.2@sha256:6aa94cf713f99c0fa58c12ffdd1b160404b4c13a7f501a73a791aa84b608c5a1
@@ -120,7 +120,7 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:
@@ -140,7 +140,7 @@ spec:
         globalMounts:
           - path: *configDir
     service:
-      main:
+      app:
         ports:
           http:
             port: *apiPort
