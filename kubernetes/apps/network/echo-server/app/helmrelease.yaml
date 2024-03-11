@@ -94,7 +94,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -107,7 +107,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: internal
                   port: http
         tls:
           - hosts:
