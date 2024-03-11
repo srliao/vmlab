@@ -62,6 +62,7 @@ spec:
 
     service:
       app:
+        controller: alertmanager
         ports:
           http:
             port: 9093
