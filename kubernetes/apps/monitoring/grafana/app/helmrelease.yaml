@@ -232,15 +232,15 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       # disable auth maybe it'll work?
-      auth.basic:
-        enabled: false
-      auth:
-        disable_login_form: true
-      auth.anonymous:
-        enabled: true
-        org_name: Main Org.
-        org_role: Viewer
-        hide_version: true
+      # auth.basic:
+      #   enabled: false
+      # auth:
+      #   disable_login_form: true
+      # auth.anonymous:
+      #   enabled: true
+      #   org_name: Main Org.
+      #   org_role: Viewer
+      #   hide_version: true
       date_formats:
         use_browser_locale: true
       explore:
