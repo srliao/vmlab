@@ -19,3 +19,4 @@ resources:
   - ./democratic-csi.yaml
   - ./prometheus-community.yaml
   - ./grafana.yaml
+  - ./bitnami.yaml
