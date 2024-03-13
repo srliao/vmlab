@@ -27,9 +27,12 @@ tasks:
   disks:
     desc: run disks command
     cmds:
-      - talosctl disks -e 192.168.100.118 -n 192.168.100.118 --talosconfig {{.TALOS_CONFIG_FILE}}
-      - talosctl disks -e 192.168.100.225 -n 192.168.100.225 --talosconfig {{.TALOS_CONFIG_FILE}}
-      - talosctl disks -e 192.168.100.180 -n 192.168.100.180 --talosconfig {{.TALOS_CONFIG_FILE}}
+      - talosctl disks -e 192.168.100.174 -n 192.168.100.174 --talosconfig {{.TALOS_CONFIG_FILE}}
+
+  disks-insecure:
+    desc: run disks command
+    cmds:
+      - talosctl disks -e 192.168.100.174 -n 192.168.100.174 --talosconfig {{.TALOS_CONFIG_FILE}} --insecure
 
   upgrade-talos:
     desc: Upgrade talos on a node
@@ -51,6 +54,22 @@ tasks:
     desc: Generate talos kubeconfig
     dir: "{{.TALOS_DIR}}"
     cmd: until talhelper gencommand kubeconfig --extra-flags "--force" | bash; do sleep 10; done
+
+  apply:
+    dir: "{{.TALOS_DIR}}"
+    desc: Apply talos config to a given node
+    cmds:
+      - talhelper genconfig
+      - talhelper gencommand apply
+      # - task: genconfig
+      # - |-
+      #   talosctl apply-config \
+      #       --nodes {{.ip}} \
+      #       --file {{.CONFIG_HOME}}/{{.cluster}}-{{.node}}.yaml \
+      #       --talosconfig {{.CONFIG_HOME}}/talosconfig \
+      #       {{.CLI_ARGS}}
+    preconditions:
+      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
 
   soft-nuke:
     desc: Resets nodes back to maintenance mode so you can re-deploy again straight after

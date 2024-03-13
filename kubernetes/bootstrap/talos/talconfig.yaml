@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.6.5
+talosVersion: v1.6.6
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.29.2
 
@@ -19,60 +19,29 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "dell-1"
-    ipAddress: "192.168.100.118"
+  - hostname: "raiden"
+    ipAddress: "192.168.100.174"
     installDiskSelector:
-      size: "<= 600GB"
-      type: ssd
+      # size: "<= 150"
+      # type: ssd
+      busPath: /pci0000:00/0000:00:05.0/0000:01:01.0/*
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
       - interface: eth0
         dhcp: false
         addresses:
-          - "192.168.100.118/24"
+          - "192.168.100.174/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: "192.168.100.1"
         vip:
           ip: "192.168.100.55"
-  - hostname: "dell-2"
-    ipAddress: "192.168.100.225"
-    installDiskSelector:
-      size: "<= 600GB"
-      type: ssd
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-    controlPlane: true
-    networkInterfaces:
-      - interface: eth0
-        dhcp: false
-        addresses:
-          - "192.168.100.225/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.100.1"
-        vip:
-          ip: "192.168.100.55"
-  - hostname: "dell-3"
-    ipAddress: "192.168.100.180"
-    installDiskSelector:
-      size: "<= 600GB"
-      type: ssd
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-    controlPlane: true
-    networkInterfaces:
-      - interface: eth0
-        dhcp: false
-        addresses:
-          - "192.168.100.180/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.100.1"
-        vip:
-          ip: "192.168.100.55"
+    machineDisks:
+      - device: /dev/sdb
+        partitions:
+          - mountpoint: /var/mnt/persistent
 
 patches:
   # Configure containerd

@@ -23,7 +23,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    providerRegex: ^(dell-1|dell-2|dell-3)$
+    providerRegex: ^(raiden)$
     bypassDnsResolution: true
     metrics:
       enable: true
