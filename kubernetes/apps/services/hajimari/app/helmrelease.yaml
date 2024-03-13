@@ -26,7 +26,7 @@ spec:
     cleanupOnFail: true
   values:
     controller:
-      replicas: 3
+      replicas: 1
       strategy: RollingUpdate
     hajimari:
       title: Dashboard
