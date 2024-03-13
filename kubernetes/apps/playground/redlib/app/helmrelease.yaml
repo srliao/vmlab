@@ -87,6 +87,7 @@ spec:
     ingress:
       app:
         enabled: true
+        nameOverride: *app
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
