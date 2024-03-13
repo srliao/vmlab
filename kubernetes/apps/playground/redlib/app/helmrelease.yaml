@@ -86,7 +86,6 @@ spec:
             port: *port
     ingress:
       app:
-        nameOveride: redlib
         enabled: true
         className: external
         annotations:
