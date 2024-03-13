@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./discord.yaml
   - ./alerts.yaml
+  - ./secret.sops.yaml

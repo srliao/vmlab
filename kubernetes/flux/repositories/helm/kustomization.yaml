@@ -12,7 +12,6 @@ resources:
   - ./stakater.yaml
   - ./xenitab.yaml
   - ./piraeus.yaml
-  - ./rook-ceph.yaml
   - ./k8tz.yaml
   - ./external-secrets.yaml
   - ./backube.yaml
