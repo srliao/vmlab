@@ -49,6 +49,7 @@ spec:
           - monitoring
           - media
           - services
+          - playground
       customApps:
         - name: NextDNS
           url: "https://nextdns.com"
