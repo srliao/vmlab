@@ -30,8 +30,8 @@ spec:
       strategy: RollingUpdate
     hajimari:
       title: Dashboard
-      lightTheme: tron
-      darkTheme: tron
+      lightTheme: espresso
+      darkTheme: espresso
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: true
