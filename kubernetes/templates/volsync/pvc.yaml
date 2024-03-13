@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: ${APP}
 spec:
-  storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+  storageClassName: "${VOLSYNC_STORAGECLASS:-local-hostpath}"
   accessModes:
     - "${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"
   volumeMode: "${VOLSYNC_VOLUMEMODE:-Filesystem}"
