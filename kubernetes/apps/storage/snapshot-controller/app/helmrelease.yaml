@@ -28,3 +28,6 @@ spec:
   values:
     webhook:
       enabled: false
+    controller:
+      args:
+        enableDistributedSnapshotting: true
