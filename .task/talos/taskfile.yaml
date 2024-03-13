@@ -55,19 +55,12 @@ tasks:
     dir: "{{.TALOS_DIR}}"
     cmd: until talhelper gencommand kubeconfig --extra-flags "--force" | bash; do sleep 10; done
 
-  apply:
+  apply-all:
     dir: "{{.TALOS_DIR}}"
     desc: Apply talos config to a given node
     cmds:
       - talhelper genconfig
-      - talhelper gencommand apply
-      # - task: genconfig
-      # - |-
-      #   talosctl apply-config \
-      #       --nodes {{.ip}} \
-      #       --file {{.CONFIG_HOME}}/{{.cluster}}-{{.node}}.yaml \
-      #       --talosconfig {{.CONFIG_HOME}}/talosconfig \
-      #       {{.CLI_ARGS}}
+      - talhelper gencommand apply | bash
     preconditions:
       - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
 
