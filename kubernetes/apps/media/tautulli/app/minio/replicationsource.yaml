@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: tautulli-minio
+spec:
+  sourcePVC: tautulli
+  trigger:
+    schedule: 0 * * * * # At the top of every hour
+  restic:
+    copyMethod: Snapshot
+    repository: tautulli-volsync-minio
+    cacheCapacity: 1Gi
+    volumeSnapshotClassName: local-hostpath
+    storageClassName: local-hostpath
+    cacheStorageClassName: local-hostpath
+    cacheAccessModes: ["ReadWriteOnce"]
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    pruneIntervalDays: 7
+    retain: # keep 24 hourly, 7 daily, and 5 weekly backups
+      hourly: 24
+      daily: 7
+      weekly: 5
