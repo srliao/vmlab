@@ -19,7 +19,7 @@ includes:
   create: .task/create
   flux: .task/flux
   k8s: .task/k8s
-  rook: .task/rook
+  # rook: .task/rook
   sops: .task/sops
   talos: .task/talos
   workstation: .task/workstation

@@ -18,7 +18,7 @@ tasks:
     prompt: this will recreate the cluster from scratch, are you sure?
     cmds:
       - task: talos
-      - task: disks
+      # - task: disks
       - task: flux-pre-check
       - task: flux-github-secrets
       - task: flux
@@ -28,10 +28,10 @@ tasks:
     cmds:
       - task: talos:bootstrap
 
-  disks:
-    desc: reset disks
-    cmds:
-      - task: rook:wipe-nodes-all
+  # disks:
+  #   desc: reset disks
+  #   cmds:
+  #     - task: rook:wipe-nodes-all
 
   flux-pre-check:
     desc: check if flux is ready to be installed
