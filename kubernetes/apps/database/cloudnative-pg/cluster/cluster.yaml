@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1-12
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: local-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+  bootstrap:
+    recovery:
+      source: &previous-cluster postgres-v0
+  postgresql:
+    parameters:
+      max_connections: "600"
+      max_slot_wal_keep_size: 10GB
+      shared_buffers: 512MB
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 500m
+    limits:
+      memory: 4Gi
+  # monitoring:
+  #   enablePodMonitor: true
+  #   podMonitorMetricRelabelings:
+  #     - action: replace
+  #       sourceLabels: [cluster]
+  #       targetLabel: cnpg_cluster
+  #     - regex: cluster
+  #       action: labeldrop
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: &s3-path s3://vmlab-cloudnative-pg/
+      # end point should point at minio
+      endpointURL: &s3-endpoint http://minio.lan
+      serverName: &current-cluster postgres-v1
+      s3Credentials: &s3-creds
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: aws-secret-access-key
+  externalClusters:
+    - name: *previous-cluster
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: *s3-path
+        endpointURL: *s3-endpoint
+        s3Credentials: *s3-creds

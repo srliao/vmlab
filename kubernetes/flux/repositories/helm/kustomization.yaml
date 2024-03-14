@@ -20,3 +20,4 @@ resources:
   - ./grafana.yaml
   - ./bitnami.yaml
   - ./hajimari-charts.yaml
+  - ./cloudnative-pg.yaml
