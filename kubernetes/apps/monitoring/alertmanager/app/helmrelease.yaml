@@ -93,11 +93,11 @@ spec:
               - *host
 
     persistence:
-      config:
-        type: configMap
-        name: alertmanager-configmap
-        globalMounts:
-          - path: /etc/alertmanager
+      # config:
+      #   type: configMap
+      #   name: alertmanager-configmap
+      #   globalMounts:
+      #     - path: /etc/alertmanager
       secrets:
         type: secret
         name: alertmanager-secret
