@@ -124,7 +124,8 @@ spec:
               - *host
 
       prometheusSpec:
-        replicas: 2
+        replicas: 1
+        # not using thanos but this shouldn't affect anything?
         replicaExternalLabelName: __replica__ # must match with thanos value `.query.replicaLabel[0]`
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -159,20 +160,20 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        thanos:
-          image: quay.io/thanos/thanos:v0.33.0
-          objectStorageConfig:
-            existingSecret:
-              name: kube-prometheus-stack-secret
-              key: objstore.yml
-          # renovate: datasource=docker depName=quay.io/thanos/thanos
-          version: "0.33.0"
+        # thanos:
+        #   image: quay.io/thanos/thanos:v0.33.0
+        #   objectStorageConfig:
+        #     existingSecret:
+        #       name: kube-prometheus-stack-secret
+        #       key: objstore.yml
+        #   # renovate: datasource=docker depName=quay.io/thanos/thanos
+        #   version: "0.33.0"
 
-      thanosService:
-        enabled: true
+      # thanosService:
+      #   enabled: true
 
-      thanosServiceMonitor:
-        enabled: true
+      # thanosServiceMonitor:
+      #   enabled: true
 
   postRenderers:
     - kustomize:
