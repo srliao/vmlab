@@ -6,7 +6,7 @@ resources:
   - ./namespace.yaml
   # Flux Kustomizations
   # - ./thanos/ks.yaml
-  # - ./kube-prometheus-stack/ks.yaml
-  # - ./alertmanager/ks.yaml
-  # - ./grafana/ks.yaml
-  # - ./exporters/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
+  - ./alertmanager/ks.yaml
+  - ./grafana/ks.yaml
+  - ./exporters/ks.yaml
