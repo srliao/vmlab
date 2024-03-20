@@ -21,3 +21,4 @@ resources:
   - ./bitnami.yaml
   - ./hajimari-charts.yaml
   - ./cloudnative-pg.yaml
+  - ./ext-postgres-operator.yaml
