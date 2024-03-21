@@ -46,7 +46,7 @@ spec:
         enabled: false
       metrics:
         enabled: true
-        controller: main
+        controller: speedtest-exporter
         ipFamilyPolicy: PreferDualStack
         ports:
           metrics:
