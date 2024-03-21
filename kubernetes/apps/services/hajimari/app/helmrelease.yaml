@@ -45,11 +45,11 @@ spec:
       defaultSearchProvider: Google
       namespaceSelector:
         matchNames:
-          - home-automation
-          - monitoring
           - media
-          - services
+          - home-automation
           - playground
+          - services
+          - monitoring
       customApps:
         - name: NextDNS
           url: "https://nextdns.com"
