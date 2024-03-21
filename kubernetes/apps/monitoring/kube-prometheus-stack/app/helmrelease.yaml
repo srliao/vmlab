@@ -115,6 +115,8 @@ spec:
     prometheus:
       ingress:
         enabled: true
+        annotations:
+          hajimari.io/enable: "false"
         ingressClassName: internal
         pathType: Prefix
         hosts:
