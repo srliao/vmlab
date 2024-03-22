@@ -27,17 +27,17 @@ tasks:
   disks:
     desc: run disks command
     cmds:
-      - talosctl disks -e 192.168.100.174 -n 192.168.100.174 --talosconfig {{.TALOS_CONFIG_FILE}}
+      - talosctl disks -e 192.168.100.80 -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}}
 
   disks-insecure:
     desc: run disks command
     cmds:
-      - talosctl disks -e 192.168.100.174 -n 192.168.100.174 --talosconfig {{.TALOS_CONFIG_FILE}} --insecure
+      - talosctl disks -e 192.168.100.80 -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}} --insecure
 
   ls:
     desc: run disks command
     cmds:
-      - talosctl ls {{.CLI_ARGS}} -e 192.168.100.174 -n 192.168.100.174 --talosconfig {{.TALOS_CONFIG_FILE}}
+      - talosctl ls {{.CLI_ARGS}} -e 192.168.100.80 -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}}
 
   upgrade-talos:
     desc: Upgrade talos on a node

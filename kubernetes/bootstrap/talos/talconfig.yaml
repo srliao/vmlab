@@ -20,7 +20,7 @@ cniConfig:
 
 nodes:
   - hostname: "raiden"
-    ipAddress: "192.168.100.174"
+    ipAddress: "192.168.100.80"
     installDiskSelector:
       # size: "<= 150"
       # type: ssd
@@ -31,7 +31,7 @@ nodes:
       - interface: eth0
         dhcp: false
         addresses:
-          - "192.168.100.174/24"
+          - "192.168.100.80/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
