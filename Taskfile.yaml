@@ -23,6 +23,7 @@ includes:
   talos: .task/talos
   workstation: .task/workstation
   volsync: .task/volsync
+  secret: .task/secret
 
 tasks:
 
