@@ -26,6 +26,11 @@ spec:
   values:
     controllers:
       recyclarr:
+
+        type: cronjob
+        cronjob:
+          schedule: "@daily"
+
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -61,6 +66,5 @@ spec:
         type: configMap
         name: recyclarr-configmap
         globalMounts:
-        - path: /config/recyclarr.yml
-          subPath: recyclarr.yml
+        - path: /config/configs/
           readOnly: true

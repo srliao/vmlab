@@ -5,11 +5,11 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-   - ../../../../templates/volsync
+   - ../../../templates/volsync
 configMapGenerator:
   - name: recyclarr-configmap
     files:
-      - recyclarr.yml=./config/recyclarr.yml
+      - radarr-movies.yml=./config/radarr-movies.yml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
