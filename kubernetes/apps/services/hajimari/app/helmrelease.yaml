@@ -51,12 +51,14 @@ spec:
           - services
           - monitoring
       customApps:
-        - name: NextDNS
-          url: "https://nextdns.com"
-          icon: dns
-        - name: Minio
-          url: "https://minio.lan"
-          icon: box
+        - group: Homelab
+          apps:
+          - name: NextDNS
+            url: "https://nextdns.com"
+            icon: dns
+          - name: Minio
+            url: "https://minio.lan"
+            icon: box
       globalBookmarks:
         - group: Dev
           bookmarks:
