@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  unlock:
+    desc: Unlock Restic repo using env vars from cluster secrets.
+    vars:
+      ns: &ns-fail '{{ or .NS (fail "Missing `NS` environment variable!") }}'
+      repo: &restic-repo '{{ or .REPO (fail "Missing `REPO` environment variable!") }}'
+    cmds:
+      - env $(kubectl get secrets -n {{.ns}} {{.repo}} -o yaml | yq '.data | to_entries | map(.key + "=" + (.value | @base64d | @sh)) | join("\n")') restic unlock --remove-all

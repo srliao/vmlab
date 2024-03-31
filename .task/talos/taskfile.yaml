@@ -81,6 +81,43 @@ tasks:
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
 
+  wipe-all:
+    desc: Wipe all persistent discs in cluster
+    dir: /{{.ROOT_DIR}}/.task/talos
+    prompt: This will wipe all persistent disk in cluster... continue?
+    cmds:
+      - task: zap-disk
+        vars:
+          node: raiden
+          disk: /dev/disk/by-path/pci-0000:01:02.0-scsi-0:0:0:1
+      - task: reboot node=raiden
+
+  zap-disk:
+    desc: Cleann all data and partition data
+    dir: /{{.ROOT_DIR}}/.task/talos
+    requires:
+      vars: [node,disk]
+    vars:
+      JOB_NAME: zap-disk-{{- .node -}}{{- .TIME -}}
+      NODE: '{{.node}}'
+      TARGET_DISK: '{{.disk}}'
+    env: &task-vars
+      NODE: "{{.NODE}}"
+      TARGET_DISK: "{{.TARGET_DISK}}"
+      JOB_NAME: "{{.JOB_NAME}}"
+      TIME: "{{.TIME}}"
+    cmds:
+      - envsubst < <(cat zap-disk-job.tmpl.yaml) | kubectl apply -f -
+      - |-
+        kubectl -n kube-system logs job/{{.JOB_NAME}} -f || true;
+        until kubectl -n kube-system wait job/{{.JOB_NAME}} --for condition=complete --timeout=2s; do
+          echo "Job {{.JOB_NAME}} is still running, logs:" &&
+          kubectl -n kube-system logs job/{{.JOB_NAME}} -f || true;
+        done;
+      - defer: kubectl -n kube-system delete job {{.JOB_NAME}}
+    preconditions:
+      - sh: test -f zap-disk-job.tmpl.yaml
+
   ### BOOTSTRAP RELATED TASKS ###
 
   bootstrap:
