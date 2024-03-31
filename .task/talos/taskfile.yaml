@@ -7,6 +7,7 @@ vars:
   TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talsecret.sops.yaml"
   TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
   TALOS_CONFIG_FILE: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
+  TIME: '{{now | date "150405"}}'
 
 env:
   TALOSCONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
@@ -23,6 +24,11 @@ tasks:
       talosctl reboot \
           --talosconfig {{.TALOS_CONFIG_FILE}} \
           --nodes $(kubectl get nodes {{.node}} -o yaml | yq '.status.addresses | map(select(.type == "InternalIP")) | .[].address')
+
+  dmesg:
+    desc: run dmesg command
+    cmds:
+      - talosctl dmesg -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}}
 
   disks:
     desc: run disks command

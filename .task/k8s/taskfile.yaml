@@ -59,6 +59,11 @@ tasks:
       vars: [ns]
     cmd: viddy -n1 kubectl get all -n {{.ns}}
 
+  delete-done:
+    cmds:
+      - task: delete-failed-pods
+      - task: delete-succeeded-pods
+
   delete-failed-pods:
     desc: Deletes pods with Failed phase
     cmd: kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
