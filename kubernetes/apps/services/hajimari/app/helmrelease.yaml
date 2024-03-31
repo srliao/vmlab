@@ -53,18 +53,24 @@ spec:
       customApps:
         - group: Homelab
           apps:
-          - name: R720 (Proxmox)
+          - name: PVE
             url: "https://192.168.100.5:8006"
+            icon: cbi:proxmox
+          - name: PBS
+            url: "https://192.168.100.5:8007"
             icon: cbi:proxmox
           - name: iDRAC
             url: "https://192.168.100.9"
             icon: simple-icons:dell
+          - name: UniFi
+            url: "https://192.168.100.20:8443/"
+            icon: cbi:unifi
           - name: NextDNS
             url: "https://nextdns.com"
-            icon: nextdns
+            icon: simple-icons:nextdns
           - name: Minio
             url: "https://minio.lan"
-            icon: minio
+            icon: simple-icons:minio
       globalBookmarks:
         - group: Dev
           bookmarks:
@@ -80,6 +86,14 @@ spec:
               url: "https://gmail.com"
             - name: Cloudflare
               url: "https://dash.cloudflare.com"
+        - group: Downloads
+          bookmarks:
+            - name: qBittorent
+              url: https://gimmeabreak.beryl.usbx.me/qbittorrent/
+            - name: Transmission
+              url: https://gimmeabreak.beryl.usbx.me/transmission/web/
+            - name: ruTorrent
+              url: https://gimmeabreak.beryl.usbx.me/rutorrent/
       searchProviders:
         - name: Google
           token: g
