@@ -53,12 +53,18 @@ spec:
       customApps:
         - group: Homelab
           apps:
+          - name: R720 (Proxmox)
+            url: "https://192.168.100.5:8006"
+            icon: cbi:proxmox
+          - name: iDRAC
+            url: "https://192.168.100.9"
+            icon: simple-icons:dell
           - name: NextDNS
             url: "https://nextdns.com"
-            icon: dns
+            icon: nextdns
           - name: Minio
             url: "https://minio.lan"
-            icon: box
+            icon: minio
       globalBookmarks:
         - group: Dev
           bookmarks:
