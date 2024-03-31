@@ -121,7 +121,9 @@ spec:
         type: nfs
         server: 192.168.100.5
         path: /storage/media
-        advancedMounts:
-          radarr-movies:
-            radarr-movies:
-              - path: /storage/media
+        globalMounts:
+          - path: /data
+        # advancedMounts:
+        #   radarr-movies:
+        #     radarr-movies:
+        #       - path: /storage/media
