@@ -55,12 +55,12 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
-  # externalClusters:
-  #   - name: *previous-cluster
-  #     barmanObjectStore:
-  #       wal:
-  #         compression: bzip2
-  #         maxParallel: 8
-  #       destinationPath: *s3-path
-  #       endpointURL: *s3-endpoint
-  #       s3Credentials: *s3-creds
+  externalClusters:
+    - name: *previous-cluster
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: *s3-path
+        endpointURL: *s3-endpoint
+        s3Credentials: *s3-creds
