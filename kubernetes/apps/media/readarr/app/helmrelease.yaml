@@ -57,6 +57,7 @@ spec:
         className: internal
         annotations:
           hajimari.io/appName: "Readarr"
+          hajimari.io/icon: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/readarr.svg
         hosts:
           - host: &host "{{ .Release.Name }}.winterspring.ca"
             paths:
