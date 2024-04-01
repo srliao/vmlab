@@ -13,7 +13,7 @@ spec:
   path: ./kubernetes/apps/media/readarr/app
   sourceRef:
     kind: GitRepository
-    name: homelab-kubernetes
+    name: home-kubernetes
   dependsOn:
     - name: external-secrets-stores
     - name: volsync
