@@ -10,5 +10,5 @@ resources:
   - ./minio
 
   # we don't need backup for redis pvc.. probably
-  - ./redis.yaml
-  - ./pvc-redis.yaml
+  # - ./redis.yaml
+  # - ./pvc-redis.yaml
