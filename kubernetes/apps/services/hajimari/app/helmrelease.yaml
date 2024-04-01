@@ -47,7 +47,7 @@ spec:
         matchNames:
           - media
           - home-automation
-          - playground
+          # - playground
           - services
           - monitoring
       customApps:
