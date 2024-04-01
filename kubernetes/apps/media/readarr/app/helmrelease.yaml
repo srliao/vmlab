@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: readarr
+spec:
+  interval: 30
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      readarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/readarr-develop
+              tag: 0.3.21.2475@sha256:dfee716eb4a45a7ccdb245ecc8a1ef669769375354db15f35e2af699e741d101
+            env:
+              TZ: America/Toronto
+              READARR__LOG_LEVEL: info
+            envFrom:
+              - secretRef:
+                  name: readarr-secret
+    service:
+      app:
+        controller: readarr
+        ports:
+          http:
+            port: 8787
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/appName: "Readarr"
+        hosts:
+          - host: &host "{{ .Release.Name }}.winterspring.ca"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: readarr-config
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+      media:
+        type: nfs
+        server: 192.168.100.5
+        path: /storage/media
+        globalMounts:
+          - path: /storage/media
