@@ -51,7 +51,7 @@ spec:
               # need this to place nice with nfs
               # USERMAP_UID: 105000
               # USERMAP_GID: 105000
-              PAPERLESS_CONSUMPTION_DIR: /documents/scans
+              PAPERLESS_CONSUMPTION_DIR: /pp/scans
               PAPERLESS_DATA_DIR: /paperless/data
               PAPERLESS_MEDIA_ROOT: /pp/media
               PAPERLESS_TRASH_DIR: /pp/trash
@@ -128,13 +128,13 @@ spec:
       #   path: storage/documents/paperless/media
       #   globalMounts:
       #     - path: /paperless/media
-      consume:
-        type: nfs
-        server: 192.168.100.5
-        path: /storage/documents
-        globalMounts:
-          - path: /documents
-      trash:
+      # consume:
+      #   type: nfs
+      #   server: 192.168.100.5
+      #   path: /storage/documents
+      #   globalMounts:
+      #     - path: /documents
+      pp:
         type: nfs
         server: 192.168.100.5
         path: /storage/documents/paperless
