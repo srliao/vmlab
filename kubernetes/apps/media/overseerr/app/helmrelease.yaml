@@ -56,7 +56,7 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/icon: cbi:overseerr
+          hajimari.io/icon: https://raw.githubusercontent.com/sct/overseerr/develop/public/os_icon.svg
         hosts:
           - host: &host "{{ .Release.Name }}.winterspring.ca"
             paths:
