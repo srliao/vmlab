@@ -49,10 +49,10 @@ spec:
               # need this to place nice with nfs
               USERMAP_UID: 105000
               USERMAP_GID: 105000
-              PAPERLESS_CONSUMPTION_DIR: /scans
+              PAPERLESS_CONSUMPTION_DIR: /documents/scans
               PAPERLESS_DATA_DIR: /paperless/data
               PAPERLESS_MEDIA_ROOT: /paperless/media
-              PAPERLESS_TRASH_DIR: /trash
+              PAPERLESS_TRASH_DIR: /pp/trash
               # to change these settings accordignly
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
               PAPERLESS_FILENAME_FORMAT_REMOVE_NONE: true
@@ -129,13 +129,13 @@ spec:
       consume:
         type: nfs
         server: 192.168.100.5
-        path: storage/documents/scans
+        path: storage/documents
         globalMounts:
-          - path: /scans
+          - path: /documents
       trash:
         type: nfs
         server: 192.168.100.5
-        path: storage/documents/paperless/trash
+        path: storage/documents/paperless
         globalMounts:
-          - path: /trash
+          - path: /pp
 
