@@ -51,7 +51,7 @@ spec:
               USERMAP_GID: 105000
               PAPERLESS_CONSUMPTION_DIR: /documents/scans
               PAPERLESS_DATA_DIR: /paperless/data
-              PAPERLESS_MEDIA_ROOT: /paperless/media
+              PAPERLESS_MEDIA_ROOT: /pp/media
               PAPERLESS_TRASH_DIR: /pp/trash
               # to change these settings accordignly
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
@@ -120,12 +120,12 @@ spec:
         existingClaim: paperless-ngx-data
         globalMounts:
         - path: /paperless/data
-      media:
-        type: nfs
-        server: 192.168.100.5
-        path: storage/documents/paperless/media
-        globalMounts:
-          - path: /paperless/media
+      # media:
+      #   type: nfs
+      #   server: 192.168.100.5
+      #   path: storage/documents/paperless/media
+      #   globalMounts:
+      #     - path: /paperless/media
       consume:
         type: nfs
         server: 192.168.100.5
