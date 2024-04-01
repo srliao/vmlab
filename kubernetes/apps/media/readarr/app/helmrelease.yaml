@@ -71,7 +71,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: readarr-config
+        existingClaim: readarr
         globalMounts:
           - path: /config
         # advancedMounts:
