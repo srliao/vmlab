@@ -13,3 +13,4 @@ resources:
   - ./plex/ks.yaml
   - ./overseerr/ks.yaml
   - ./readarr/ks.yaml
+  - ./audiobookshelf/ks.yaml
