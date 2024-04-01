@@ -83,13 +83,13 @@ spec:
               limits:
                 memory: 1Gi
 
-        pod:
-          securityContext:
-            runAsUser: 105000
-            runAsGroup: 105000
-            # runAsNonRoot: true
-            fsGroup: 105000
-            fsGroupChangePolicy: OnRootMismatch
+        # pod:
+        #   securityContext:
+        #     runAsUser: 105000
+        #     runAsGroup: 105000
+        #     runAsNonRoot: true
+        #     fsGroup: 105000
+        #     fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
