@@ -6,4 +6,3 @@ resources:
   - ./namespace.yaml
   # Flux Kustomizations
   - ./hajimari/ks.yaml
-  - ./paperless-ngx/ks.yaml
