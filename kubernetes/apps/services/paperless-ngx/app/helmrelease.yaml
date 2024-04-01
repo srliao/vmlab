@@ -49,8 +49,8 @@ spec:
               # PAPERLESS_REDIS: redis://paperless-ngx-redis-master:6379
               PAPERLESS_REDIS: redis://redis-node-0.redis-headless.database.svc.cluster.local:26379
               # need this to place nice with nfs
-              USERMAP_UID: 105000
-              USERMAP_GID: 105000
+              # USERMAP_UID: 105000
+              # USERMAP_GID: 105000
               PAPERLESS_CONSUMPTION_DIR: /documents/scans
               PAPERLESS_DATA_DIR: /paperless/data
               PAPERLESS_MEDIA_ROOT: /pp/media
