@@ -50,7 +50,7 @@ spec:
         controller: readarr
         ports:
           http:
-            port: 8787
+            port: 80
     ingress:
       app:
         enabled: true
