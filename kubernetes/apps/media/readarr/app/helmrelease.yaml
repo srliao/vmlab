@@ -72,10 +72,12 @@ spec:
       config:
         enabled: true
         existingClaim: readarr-config
-        advancedMounts:
-          main:
-            main:
-              - path: /config
+        globalMounts:
+          - path: /config
+        # advancedMounts:
+        #   main:
+        #     main:
+              # - path: /config
       media:
         type: nfs
         server: 192.168.100.5
