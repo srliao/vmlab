@@ -83,7 +83,7 @@ spec:
         annotations:
           hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/filebrowser.svg
         hosts:
-          - host: &host "{{ .Release.Name }}.winterspring.ca"
+          - host: &host "files.winterspring.ca"
             paths:
               - path: /
                 pathType: Prefix
