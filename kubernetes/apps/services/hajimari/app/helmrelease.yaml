@@ -50,6 +50,7 @@ spec:
           # - playground
           - services
           - monitoring
+          - rp
       customApps:
         - group: Homelab
           apps:
