@@ -30,8 +30,8 @@ spec:
       strategy: RollingUpdate
     hajimari:
       title: Dashboard
-      lightTheme: expresso
-      darkTheme: expresso
+      lightTheme: horizon
+      darkTheme: horizon
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: false
