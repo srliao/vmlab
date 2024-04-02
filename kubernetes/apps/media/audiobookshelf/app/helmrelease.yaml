@@ -80,7 +80,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/appName: "Audiobookshelf"
-          hajimari.io/icon: arcticons:audiobookshelf
+          # hajimari.io/icon: arcticons:audiobookshelf
+          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/audiobookshelf.svg
         hosts:
           - host: &host '{{ .Release.Name }}.${SECRET_DOMAIN}'
             paths:

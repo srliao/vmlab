@@ -103,7 +103,8 @@ spec:
         className: internal
         annotations:
           hajimari.io/appName: "Sonarr (TV)"
-          hajimari.io/icon: cbi:sonarr
+          # hajimari.io/icon: cbi:sonarr
+          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/sonarr.svg
         hosts:
           - host: &host "{{ .Release.Name }}.winterspring.ca"
             paths:

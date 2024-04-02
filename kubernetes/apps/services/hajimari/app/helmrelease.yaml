@@ -55,22 +55,23 @@ spec:
           apps:
           - name: PVE
             url: "https://192.168.100.5:8006"
-            icon: cbi:proxmox
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/proxmox.svg
           - name: PBS
             url: "https://192.168.100.5:8007"
-            icon: cbi:proxmox
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/proxmox.svg
           - name: iDRAC
             url: "https://192.168.100.9"
-            icon: simple-icons:dell
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/idrac.svg
           - name: UniFi
             url: "https://192.168.100.20:8443/"
-            icon: cbi:unifi
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/unifi.svg
           - name: NextDNS
             url: "https://nextdns.com"
-            icon: simple-icons:nextdns
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/nextdns.svg
           - name: Minio
             url: "https://minio.lan"
-            icon: simple-icons:minio
+            # icon: simple-icons:minio
+            icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/minio.svg
       globalBookmarks:
         - group: Dev
           bookmarks:

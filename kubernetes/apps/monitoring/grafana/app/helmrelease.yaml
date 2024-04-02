@@ -276,7 +276,8 @@ spec:
       enabled: true
       ingressClassName: internal
       annotations:
-        hajimari.io/icon: logos:grafana
+        hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/grafana.svg
+        # hajimari.io/icon: logos:grafana
       hosts:
         - &host grafana.winterspring.ca
       tls:

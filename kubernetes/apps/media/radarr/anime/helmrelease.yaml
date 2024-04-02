@@ -102,7 +102,8 @@ spec:
         className: internal
         annotations:
           hajimari.io/appName: "Radarr (Anime)"
-          hajimari.io/icon: cbi:radarr
+          # hajimari.io/icon: cbi:radarr
+          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/radarr.svg
         hosts:
           - host: &host "{{ .Release.Name }}.winterspring.ca"
             paths:
