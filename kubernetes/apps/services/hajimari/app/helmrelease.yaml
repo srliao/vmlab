@@ -76,7 +76,7 @@ spec:
       globalBookmarks:
         - group: Dev
           bookmarks:
-            - name: ChatGP
+            - name: ChatGPT
               url: "https://chat.openai.com/"
             - name: vmlab
               url: "https://github.com/srliao/vmlab"
