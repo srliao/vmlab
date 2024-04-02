@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: home-kubernetes
+  name: rp-kubernetes
   namespace: flux-system
 spec:
   interval: 30m
