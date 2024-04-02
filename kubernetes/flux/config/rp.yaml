@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/gitrepository-source-v1.json
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: home-kubernetes
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: "ssh://github.com/srliao/rp.git"
+  secretRef:
+    name: github-deploy-key
+  ref:
+    branch: "main"
+  # don't need ignore on this repo since it only contains kustomization files
+  # ignore: |
+  #   # exclude all
+  #   /*
+  #   # include kubernetes directory
+  #   !/kubernetes
