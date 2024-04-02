@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: filebrowser
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      filebrowser:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: docker.io/filebrowser/filebrowser
+              tag: v2.28.0@sha256:c893e6ae1ad278ff1b3ab393c5abc376280aa4e90b6c17fc640c0cf95ee7eb06
+            env:
+              FB_DATABASE: /config/filebrowser.db
+              FB_ROOT: /storage
+              FB_LOG: stdout
+              FB_PORT: &port 80
+            probes:
+              startup:
+                enabled: false
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64M
+              limits:
+                memory: 128M
+
+        pod:
+          securityContext:
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            runAsNonRoot: true
+            fsGroup: ${APP_GID}
+            fsGroupChangePolicy: "OnRootMismatch"
+
+    service:
+      app:
+        controller: filebrowser
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/filebrowser.svg
+        hosts:
+          - host: &host "{{ .Release.Name }}.winterspring.ca"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: filebrowser
+        globalMounts:
+          - path: /config
+      media:
+        type: nfs
+        server: 192.168.100.5
+        path: /storage/media
+        globalMounts:
+          - path: /storage/media
+      documents:
+        type: nfs
+        server: 192.168.100.5
+        path: /storage/documents
+        globalMounts:
+          - path: /storage/documents
