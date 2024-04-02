@@ -39,6 +39,7 @@ spec:
               FB_ROOT: /storage
               FB_LOG: stdout
               FB_PORT: &port 80
+              FB_NOAUTH: true
             probes:
               startup:
                 enabled: false
