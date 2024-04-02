@@ -76,8 +76,12 @@ spec:
       globalBookmarks:
         - group: Dev
           bookmarks:
-            - name: GitHub
-              url: "https://github.com"
+            - name: ChatGP
+              url: "https://chat.openai.com/"
+            - name: vmlab
+              url: "https://github.com/srliao/vmlab"
+            - name: gcsim
+              url: "https://github.com/genshinsim/gcsim"
             - name: CyberChef
               url: "https://gchq.github.io/CyberChef"
         - group: Cloud
