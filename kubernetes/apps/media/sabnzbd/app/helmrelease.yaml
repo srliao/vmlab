@@ -82,7 +82,7 @@ spec:
         controller: sabnzbd
         ports:
           http:
-            port: 8787
+            port: *port
     ingress:
       app:
         enabled: true
