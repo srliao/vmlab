@@ -17,3 +17,4 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./filebrowser/ks.yaml
   - ./openbooks/ks.yaml
+  - ./kavita/ks.yaml
