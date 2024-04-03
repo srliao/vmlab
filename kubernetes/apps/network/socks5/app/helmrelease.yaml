@@ -39,6 +39,7 @@ spec:
               tag: latest@sha256:9a782b30e3cdcd0e10561ab7896bd9322ed41b9761954d2ad8c74e2ddc40f4c3
             env:
               TZ: America/Toronto
+            port: 1080
 
             resources:
               requests:
