@@ -38,10 +38,10 @@ spec:
               CONFIG_PATH: /config
             resources:
               requests:
-                cpu: 15m
-                memory: 512Mi
+                cpu: 50m
+                memory: 3Gi
               limits:
-                memory: 1Gi
+                memory: 8Gi
         pod:
           securityContext:
             runAsUser: ${APP_UID}
