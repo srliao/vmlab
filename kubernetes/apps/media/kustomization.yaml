@@ -18,3 +18,4 @@ resources:
   - ./filebrowser/ks.yaml
   - ./openbooks/ks.yaml
   - ./kavita/ks.yaml
+  - ./metube/ks.yaml
