@@ -51,6 +51,7 @@ spec:
           - services
           - monitoring
           - rp
+          - database
       customApps:
         - group: Homelab
           apps:
