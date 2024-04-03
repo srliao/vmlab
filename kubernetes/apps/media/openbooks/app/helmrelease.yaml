@@ -42,13 +42,16 @@ spec:
               - --dir
               - /ebooks
               - --port
-              - "8080"
+              - "80"
               - --name
               - gimmeabreak
               - --useragent
               - "HexChat 2.9.1"
               - --searchbot
               - searchook
+              - --persist
+              - --server
+              - "irc.irchighway.net:9999"
 
         pod:
           securityContext:
@@ -62,7 +65,7 @@ spec:
         controller: openbooks
         ports:
           http:
-            port: 8080
+            port: 80
 
     ingress:
       app:
