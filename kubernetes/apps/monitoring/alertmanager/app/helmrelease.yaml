@@ -84,6 +84,7 @@ spec:
         annotations:
           hajimari.io/appName: Alerts
           hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/alertmanager.svg
+          hajimari.io/enable: "false"
         hosts:
           - host: &host alertmanager.winterspring.ca
             paths:
