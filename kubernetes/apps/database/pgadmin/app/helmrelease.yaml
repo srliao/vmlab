@@ -50,10 +50,10 @@ spec:
                   name: pgadmin-secret
             resources:
               requests:
-                cpu: 50
-                memory: 100Mi
+                cpu: 15m
+                memory: 164Mi
               limits:
-                memory: 500Mi
+                memory: 236Mi
     service:
       app:
         controller: *app
