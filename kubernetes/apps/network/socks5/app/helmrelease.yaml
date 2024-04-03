@@ -35,11 +35,11 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/xkuma/socks5
-              tag: latest@sha256:9a782b30e3cdcd0e10561ab7896bd9322ed41b9761954d2ad8c74e2ddc40f4c3
+              repository: docker.io/serjs/go-socks5-proxy
+              tag: latest@sha256:aad36c623f16850d7cea0171d1aa79d706129191db9e270b6dfd7db6b552c734
             env:
               TZ: America/Toronto
-            port: 1080
+              PROXY_PORT: 1080
 
             resources:
               requests:
