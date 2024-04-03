@@ -87,6 +87,8 @@ spec:
               url: "https://gchq.github.io/CyberChef"
         - group: Cloud
           bookmarks:
+            - name: Discord
+              url: "https://discord.com/channels/@me"
             - name: Google Drive
               url: "https://drive.google.com"
             - name: Gmail
