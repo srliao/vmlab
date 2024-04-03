@@ -58,7 +58,7 @@ spec:
         className: internal
         annotations:
           hajimari.io/appName: "MeTube"
-          hhajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/metube.svg
+          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/metube.svg
         hosts:
           - host: &host '{{ .Release.Name }}.winterspring.ca'
             paths:
