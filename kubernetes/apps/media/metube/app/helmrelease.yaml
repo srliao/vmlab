@@ -55,8 +55,8 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/appName: "Metub"
-          hhajimari.io/icon: ttps://github.com/walkxcode/dashboard-icons/raw/main/svg/metube.svg
+          hajimari.io/appName: "MeTube"
+          hhajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/metube.svg
         hosts:
           - host: &host '{{ .Release.Name }}.winterspring.ca'
             paths:
