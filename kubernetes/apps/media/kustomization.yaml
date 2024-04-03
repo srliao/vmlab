@@ -16,3 +16,4 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./filebrowser/ks.yaml
+  - ./openbooks/ks.yaml
