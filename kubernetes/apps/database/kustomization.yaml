@@ -9,3 +9,4 @@ resources:
   - ./redis/ks.yaml
   - ./cloudnative-pg/ks.yaml
   - ./ext-postgres-operator/ks.yaml
+  - ./pgadmin/ks.yaml
