@@ -1,0 +1,96 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app gcsim-preview
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      gcsim-preview:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/genshinsim/preview
+              tag: main@sha256:49408fcf181ae829156df61132d23888565c2bdc48163f6b9bcbb47dec7b3ca5
+            envFrom:
+              - secretRef:
+                  name: gcsim-preview-secret
+            env:
+              PORT: &port 7777
+              TZ: America/Toronto
+              LAUNCHER_URL: ws://gcsim-rod.gcsim.svc.cluster.local:7317
+              ASSETS_PATH: /assets/assets
+              REDIS_URL: redis-node-0.redis-headless.database.svc.cluster.local:26379
+              PREVIEW_URL: http://gcsim-preview.gcsim.svc.cluster.local:7777
+            resources:
+              requests:
+                cpu: 10m
+                memory: 512Mi
+              limits:
+                memory: 512Mi
+    service:
+      app:
+        controller: gcsim-preview
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        nameOverride: *app
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hosts:
+          - host: &host '{{ .Release.Name }}.${SECRET_DOMAIN}'
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+      internal:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host2 "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host2
+
+    persistence:
+      assets:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /assets
