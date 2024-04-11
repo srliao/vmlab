@@ -32,7 +32,8 @@ spec:
           app:
             image:
               repository: ghcr.io/genshinsim/preview
-              tag: main@sha256:f9e20ee39a1a47394d9ec6beef72e0e5001a910a00165afeb47afa3c6aeb6fb0
+              tag: main
+              pullPolicy: always
             envFrom:
               - secretRef:
                   name: gcsim-preview-secret
@@ -41,7 +42,8 @@ spec:
               TZ: America/Toronto
               LAUNCHER_URL: ws://gcsim-rod.gcsim.svc.cluster.local:7317
               ASSETS_PATH: /assets/assets
-              REDIS_URL: redis-node-0.redis-headless.database.svc.cluster.local:26379
+              REDIS_URL: redis-node-0.redis-headless.database.svc.cluster.local:26379,redis-node-1.redis-headless.database.svc.cluster.local:26379,redis-node-2.redis-headless.database.svc.cluster.local:26379
+              REDIS_MASTER_NAME: redis-master
               PREVIEW_URL: http://gcsim-preview.gcsim.svc.cluster.local:7777
             resources:
               requests:
