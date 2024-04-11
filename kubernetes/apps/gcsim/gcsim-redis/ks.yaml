@@ -3,18 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app gcsim-preview
+  name: &app gcsim-redis
   namespace: flux-system
 spec:
   targetNamespace: gcsim
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/gcsim/gcsim-preview/app
-  dependsOn:
-    - name: external-secrets-stores
-    - name: gcsim-rod
-    - name: gcsim-redis
+  path: ./kubernetes/apps/gcsim/gcsim-redis/app
   prune: true
   sourceRef:
     kind: GitRepository

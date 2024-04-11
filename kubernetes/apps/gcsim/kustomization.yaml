@@ -7,3 +7,4 @@ resources:
   # Flux Kustomizations
   - ./gcsim-preview/ks.yaml
   - ./gcsim-rod/ks.yaml
+  - ./gcsim-redis/ks.yaml
