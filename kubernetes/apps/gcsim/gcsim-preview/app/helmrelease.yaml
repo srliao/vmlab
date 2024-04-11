@@ -43,7 +43,7 @@ spec:
               LAUNCHER_URL: ws://gcsim-rod.gcsim.svc.cluster.local:7317
               ASSETS_PATH: /assets/assets
               REDIS_MASTER_NAME: redis-master
-              REDIS_URL: redis-node-0.redis-headless.database.svc.cluster.local:6379,redis-node-1.redis-headless.database.svc.cluster.local:6379,redis-node-2.redis-headless.database.svc.cluster.local:6379
+              REDIS_URL: redis-node-0.redis-headless.database.svc.cluster.local:26379,redis-node-1.redis-headless.database.svc.cluster.local:26379,redis-node-2.redis-headless.database.svc.cluster.local:26379
               PREVIEW_URL: http://gcsim-preview.gcsim.svc.cluster.local:7777
             resources:
               requests:
