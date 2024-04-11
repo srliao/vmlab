@@ -33,7 +33,7 @@ spec:
             image:
               repository: ghcr.io/genshinsim/preview
               tag: main
-              pullPolicy: always
+              pullPolicy: Always
             envFrom:
               - secretRef:
                   name: gcsim-preview-secret
