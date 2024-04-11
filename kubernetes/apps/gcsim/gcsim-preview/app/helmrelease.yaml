@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/genshinsim/preview
-              tag: main
+              tag: main@sha256:7aac3027339e99995d9adc2a6ca5279062eba7b5273c8b7c30d02d609949a3cc
               pullPolicy: Always
             envFrom:
               - secretRef:
