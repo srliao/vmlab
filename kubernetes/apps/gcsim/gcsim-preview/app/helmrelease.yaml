@@ -40,6 +40,7 @@ spec:
             env:
               PORT: &port 7777
               TZ: America/Toronto
+              PROXY_TO: https://gcsim.app
               LAUNCHER_URL: ws://gcsim-rod.gcsim.svc.cluster.local:7317
               ASSETS_PATH: /assets/assets
               REDIS_MASTER_NAME: redis-master
