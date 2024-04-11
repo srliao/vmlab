@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/genshinsim/preview
-              tag: main@sha256:49408fcf181ae829156df61132d23888565c2bdc48163f6b9bcbb47dec7b3ca5
+              tag: main
             envFrom:
               - secretRef:
                   name: gcsim-preview-secret
