@@ -30,15 +30,9 @@ spec:
     master:
       persistence:
         enabled: false
-      resources:
-        limits:
-          cpu: 10m
     replica:
       persistence:
         enabled: false
-      resources:
-        limits:
-          cpu: 10m
     sentinel:
       enabled: true
       masterSet: redis-master
