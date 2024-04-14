@@ -41,8 +41,6 @@ spec:
         failureThreshold: 2
       persistence:
         enabled: false
-      livenessProbe:
-        periodSeconds: 40
     metrics:
       enabled: true
       serviceMonitor:
