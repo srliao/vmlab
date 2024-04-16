@@ -42,6 +42,11 @@ nodes:
       - device: /dev/sdb
         partitions:
           - mountpoint: /var/mnt/persistent
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/binfmt-misc
 
 patches:
   # Configure containerd
