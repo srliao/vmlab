@@ -132,7 +132,7 @@ spec:
           MINIO_USE_SSL: false
           MINIO_INSECURE_SKIP_VERIFY: true
           MINIO_BUCKET: gitea
-          MINIO_ENDPOINT: s3:http://minio.lan/
+          MINIO_ENDPOINT: minio.lan
 
         actions:
           enabled: true
