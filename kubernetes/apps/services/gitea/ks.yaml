@@ -42,7 +42,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/services/gitea/action
+  path: ./kubernetes/apps/services/gitea/action/
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
