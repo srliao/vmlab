@@ -5,4 +5,5 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./ssh-ingress.yaml
+  - ./networkpolicy.yaml
   - ../../../../templates/volsync
