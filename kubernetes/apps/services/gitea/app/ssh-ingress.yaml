@@ -7,7 +7,7 @@
     hajimari.io/enable: "true"
     hajimari.io/icon: simple-icons:gitea
    name: gitea-ssh
-   namespace: tools
+   namespace: services
  spec:
    ingressClassName: internal
    rules:
