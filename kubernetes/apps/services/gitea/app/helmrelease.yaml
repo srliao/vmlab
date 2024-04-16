@@ -97,6 +97,7 @@ spec:
           DB_TYPE: postgres
           NAME: gitea
           SCHEMA: public
+          HOST: postgres-rw.database.svc.cluster.local:5432
           SSL_MODE: disable
           MAX_OPEN_CONNS: 0
           MAX_IDLE_CONNS: 2
@@ -144,7 +145,7 @@ spec:
         secret.reloader.stakater.com/reload: gitea-secret
 
     postgresql:
-      enabled: true
+      enabled: false
     postgresql-ha:
       enabled: false
     redis-cluster:
@@ -164,6 +165,15 @@ spec:
       kind: Secret
       name: gitea-secret
       valuesKey: adminPassword
+    # db
+    - targetPath: gitea.config.database.PASSWD
+      kind: Secret
+      name: gitea-config
+      valuesKey: dbPassword
+    - targetPath: gitea.config.database.USER
+      kind: Secret
+      name: gitea-config
+      valuesKey: dbUser
     # minio secrets
     - targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
       kind: Secret
