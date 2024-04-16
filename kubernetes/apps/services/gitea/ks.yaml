@@ -42,7 +42,7 @@ spec:
     - name: gitea
     - name: external-secrets-stores
     - name: democratic-csi-local-path
-  path: ./kubernetes/apps/services/gitea/actions
+  path: ./kubernetes/apps/services/gitea/action
   prune: true
   sourceRef:
     kind: GitRepository
