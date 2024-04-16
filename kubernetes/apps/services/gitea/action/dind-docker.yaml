@@ -60,6 +60,7 @@ spec:
           securityContext:
             privileged: true
             hostPID: true
+            allowPrivilegeEscalation: true
           volumeMounts:
             - name: runner-data
               mountPath: /data
