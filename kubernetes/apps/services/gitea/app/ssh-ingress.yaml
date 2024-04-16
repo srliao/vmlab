@@ -4,8 +4,7 @@
    annotations:
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    hajimari.io/enable: "true"
-    hajimari.io/icon: simple-icons:gitea
+    hajimari.io/enable: "false"
    name: gitea-ssh
    namespace: services
  spec:
