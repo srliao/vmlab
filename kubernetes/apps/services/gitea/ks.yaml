@@ -38,15 +38,19 @@ metadata:
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
+  targetNamespace: services
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/services/gitea/action
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
   dependsOn:
     - name: gitea
     - name: external-secrets-stores
     - name: democratic-csi-local-path
-  path: ./kubernetes/apps/services/gitea/action
   prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
   interval: 30m
   retryInterval: 1m
   timeout: 3m
