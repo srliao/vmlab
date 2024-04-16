@@ -75,14 +75,15 @@ spec:
 
         server:
           DISABLE_SSH: false
-          SSH_PORT: 22
-          SSH_LISTEN_PORT: 2222
-          SSH_DOMAIN: "ssh.git.${SECRET_DOMAIN}"
           DOMAIN: "git.${SECRET_DOMAIN}"
           ROOT_URL: "https://git.${SECRET_DOMAIN}"
           ENABLE_GZIP: true
           LANDING_PAGE: login
           LFS_START_SERVER: true
+          START_SSH_SERVER: true
+          SSH_PORT: 22
+          SSH_LISTEN_PORT: 22
+          SSH_DOMAIN: "ssh.git.${SECRET_DOMAIN}"
 
         packages:
           enabled: true
