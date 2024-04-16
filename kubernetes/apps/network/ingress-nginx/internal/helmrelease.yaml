@@ -86,3 +86,5 @@ spec:
           memory: 500Mi
     defaultBackend:
       enabled: false
+    tcp:
+      "22": "services/gitea-ssh:22"
