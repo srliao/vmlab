@@ -95,7 +95,7 @@ spec:
 
         database:
           DB_TYPE: postgres
-          NAME: gitea
+          NAME: giteadb
           SCHEMA: public
           HOST: postgres-rw.database.svc.cluster.local:5432
           SSL_MODE: disable
