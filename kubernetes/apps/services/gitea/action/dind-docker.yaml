@@ -54,7 +54,7 @@ spec:
             - name: GITEA_RUNNER_REGISTRATION_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: gitea-actions-secrets
+                  name: gitea-actions-secret
                   key: token
 
           securityContext:
