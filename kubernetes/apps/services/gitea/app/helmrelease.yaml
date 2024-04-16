@@ -89,6 +89,7 @@ spec:
           enabled: true
 
         admin:
+          username: srliao
           DISABLE_REGULAR_ORG_CREATION: true
         ui:
           DEFAULT_THEME: arc-green
