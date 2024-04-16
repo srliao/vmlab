@@ -57,7 +57,7 @@ spec:
             - *host
     service:
       ssh:
-        type: ClusterIP
+        type: LoadBalancer
         port: 22
 
     resources:
