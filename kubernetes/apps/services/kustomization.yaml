@@ -7,3 +7,4 @@ resources:
   # Flux Kustomizations
   - ./hajimari/ks.yaml
   - ./changedetection/ks.yaml
+  - ./gitea/ks.yaml
