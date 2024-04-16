@@ -168,11 +168,11 @@ spec:
     # db
     - targetPath: gitea.config.database.PASSWD
       kind: Secret
-      name: gitea-config
+      name: gitea-secret
       valuesKey: dbPassword
     - targetPath: gitea.config.database.USER
       kind: Secret
-      name: gitea-config
+      name: gitea-secret
       valuesKey: dbUser
     # minio secrets
     - targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
