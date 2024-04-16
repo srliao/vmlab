@@ -1,0 +1,26 @@
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   annotations:
+    external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    hajimari.io/enable: "true"
+    hajimari.io/icon: simple-icons:gitea
+   name: gitea-ssh
+   namespace: tools
+ spec:
+   ingressClassName: internal
+   rules:
+   - host: &host "ssh.git.${SECRET_DOMAIN}"
+     http:
+       paths:
+       - backend:
+           service:
+             name: gitea-ssh
+             port:
+               number: 22
+         path: /
+         pathType: Prefix
+   tls:
+   - hosts:
+     - *host

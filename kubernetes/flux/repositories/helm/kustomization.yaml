@@ -22,3 +22,4 @@ resources:
   - ./hajimari-charts.yaml
   - ./cloudnative-pg.yaml
   - ./ext-postgres-operator.yaml
+  - ./gitea.yaml
