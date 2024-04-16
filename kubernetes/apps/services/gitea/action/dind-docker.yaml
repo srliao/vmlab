@@ -59,6 +59,7 @@ spec:
 
           securityContext:
             privileged: true
+            hostPID: true
           volumeMounts:
             - name: runner-data
               mountPath: /data
