@@ -88,27 +88,11 @@ spec:
       app:
         enabled: true
         nameOverride: *app
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: logos:reddit-icon
         hosts:
           - host: &host '{{ .Release.Name }}.${SECRET_DOMAIN}'
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-      internal:
-        enabled: true
-        className: internal
-        annotations:
-          hajimari.io/enable: "false"
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
