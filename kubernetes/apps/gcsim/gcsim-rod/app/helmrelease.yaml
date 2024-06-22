@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/go-rod/rod
-              tag: latest@sha256:a805e8afedb8fbadf86e37156fe745ec185379e01c0a5db44cad775658ad30d6
+              tag: latest@sha256:abf1322aa0aee220b0e6571db1699ae2eca1a7af7e2c0a44bade8b6cbd9bbcb8
             resources:
               requests:
                 memory: 1Gi
