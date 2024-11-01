@@ -76,9 +76,9 @@ spec:
       app:
         enabled: true
         nameOverride: *app
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          # external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/appName: "Audiobookshelf"
           # hajimari.io/icon: arcticons:audiobookshelf
           hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/audiobookshelf.svg
@@ -92,21 +92,6 @@ spec:
         tls:
           - hosts:
               - *host
-      internal:
-        enabled: true
-        className: internal
-        annotations:
-          hajimari.io/enable: "false"
-        hosts:
-          - host: &host2 "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host2
 
     persistence:
       config:

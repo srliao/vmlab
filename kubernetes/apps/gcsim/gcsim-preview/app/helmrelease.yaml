@@ -62,9 +62,10 @@ spec:
       app:
         enabled: true
         nameOverride: *app
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/enable: "false"
+        #   external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host '{{ .Release.Name }}.${SECRET_DOMAIN}'
             paths:
@@ -75,21 +76,6 @@ spec:
         tls:
           - hosts:
               - *host
-      internal:
-        enabled: true
-        className: internal
-        annotations:
-          hajimari.io/enable: "false"
-        hosts:
-          - host: &host2 "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host2
 
     persistence:
       assets:

@@ -86,24 +86,9 @@ spec:
     ingress:
       app:
         enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hosts:
-          - host: &host "{{ .Release.Name }}-external.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-      internal:
-        enabled: true
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}-internal.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}-external.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
