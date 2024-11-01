@@ -56,7 +56,6 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "sshwifty"
-          hajimari.io/info: "sshwifty remote access jumpbox"
           hajimari.io/icon: "remote-desktop"
           hajimari.io/targetBlank: "true"
         hosts:
