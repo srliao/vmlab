@@ -69,7 +69,7 @@ tasks:
 
   watch:
     silent: true
-    cmd: viddy -n1 flux get all -A || watch -n1 flux get all -A
+    cmd: viddy -n 1 flux get all -A || watch -n1 flux get all -A
 
   hr-restart:
     desc: Restart all failed Helm Releases
