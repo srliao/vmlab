@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.3.2/charts/library/common/values.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -37,20 +37,13 @@ spec:
             env:
               TZ: America/Toronto
               SSHWIFTY_CONFIG: /config/sshwifty.json
-            volumeMounts:
-              - name: config
-                mountPath: config
+              SSHWIFTY_PRESETS: '[{"Title":"studio","Type":"SSH","Host":"192.168.100.95","Meta":{"Authentication":"Password"}}]'
             resources:
               requests:
                 cpu: 100m
                 memory: 52M
               limits:
                 memory: 256M
-        volumes:
-          - name: config
-            configMap:
-              name: sshwifty-configmap
-              defaultMode: 0777
     service:
       app:
         controller: *app
