@@ -8,3 +8,4 @@ resources:
   - ./hajimari/ks.yaml
   - ./changedetection/ks.yaml
   # - ./gitea/ks.yaml
+  - ./sshwifty/ks.yaml
