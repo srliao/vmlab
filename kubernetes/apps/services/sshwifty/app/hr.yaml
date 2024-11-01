@@ -60,7 +60,7 @@ spec:
           hajimari.io/icon: "remote-desktop"
           hajimari.io/targetBlank: "true"
         hosts:
-          - host: &host "sshwifty.winterspring.a"
+          - host: &host "sshwifty.winterspring.ca"
             paths:
               - path: /
                 service:
