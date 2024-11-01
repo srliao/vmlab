@@ -16,6 +16,8 @@ spec:
   values:
     controllers:
       sshwifty:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -46,9 +48,9 @@ spec:
           hajimari.io/icon: "remote-desktop"
           hajimari.io/targetBlank: "true"
         hosts:
-          - host: &host sshwifty.winterspring.ca
+          - host: &host "sshwifty.winterspring.ca"
             paths:
-              - path: "/"
+              - path: /
                 service:
                   identifier: app
                   port: http
