@@ -1,0 +1,12 @@
+{
+  "Presets": [
+    {
+      "Title": "studio",
+      "Type": "SSH",
+      "Host": "192.168.100.95",
+      "Meta": {
+        "Authentication": "Password"
+      }
+    }
+  ]
+}

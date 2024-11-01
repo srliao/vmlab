@@ -7,3 +7,7 @@ metadata:
 namespace: services
 resources:
   - ./hr.yaml
+configMapGenerator:
+  - name: sshwifty-configmap
+    files:
+      - sshwifty.json=./config.json
