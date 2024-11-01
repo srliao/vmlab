@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -13,6 +14,16 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       sshwifty:
@@ -24,7 +35,8 @@ spec:
               repository: niruix/sshwifty
               tag: latest
             env:
-              TZ: "America/Toronto"
+              # ME_CONFIG_MONGODB_URL: mongodb://mongodb.database.svc.cluster.local:27017
+              TZ: America/Toronto
             resources:
               requests:
                 cpu: 100m
@@ -48,7 +60,7 @@ spec:
           hajimari.io/icon: "remote-desktop"
           hajimari.io/targetBlank: "true"
         hosts:
-          - host: &host "sshwifty.winterspring.ca"
+          - host: &host "sshwifty.winterspring.a"
             paths:
               - path: /
                 service:
