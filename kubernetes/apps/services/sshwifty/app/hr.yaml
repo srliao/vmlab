@@ -35,22 +35,14 @@ spec:
               repository: niruix/sshwifty
               tag: latest
             env:
+              # ME_CONFIG_MONGODB_URL: mongodb://mongodb.database.svc.cluster.local:27017
               TZ: America/Toronto
-              SSHWIFTY_CONFIG: /config/sshwifty.json
-            volumeMounts:
-              - name: config
-                mountPath: config
             resources:
               requests:
                 cpu: 100m
                 memory: 52M
               limits:
                 memory: 256M
-        volumes:
-          - name: config
-            configMap:
-              name: sshwifty-configmap
-              defaultMode: 0777
     service:
       app:
         controller: *app
