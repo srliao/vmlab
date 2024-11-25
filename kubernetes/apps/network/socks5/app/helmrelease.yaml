@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.5.1
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -35,10 +35,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/socks5
-              tag: 1.4.3@sha256:74336fb62e0f208777be214810f6b24921a65541238b2bba7937d9ddc7cfaadc
+              repository: docker.io/serjs/go-socks5-proxy
+              tag: latest@sha256:aad36c623f16850d7cea0171d1aa79d706129191db9e270b6dfd7db6b552c734
             env:
               TZ: America/Toronto
+              PROXY_PORT: 1080
+
             resources:
               requests:
                 cpu: 10m
@@ -49,15 +51,13 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
-        # pod:
-        #   annotations:
-        #     setGateway: "true"
-          # securityContext:
-          #   runAsUser: 568
-          #   runAsGroup: 568
-          #   runAsNonRoot: true
-          #   fsGroup: 568
-          #   fsGroupChangePolicy: OnRootMismatch
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
