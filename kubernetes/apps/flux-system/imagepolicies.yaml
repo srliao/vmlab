@@ -6,7 +6,7 @@ metadata:
 spec:
   imageRepositoryRef:
     name: gcsim-assets
-    namespace: home-kubernetes
+    namespace: gcsim
   policy:
     semver:
       range: ">=2.0.0"
