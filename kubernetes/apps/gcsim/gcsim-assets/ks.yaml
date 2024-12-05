@@ -13,6 +13,7 @@ spec:
   path: ./kubernetes/apps/gcsim/gcsim-assets/app
   dependsOn:
     - name: external-secrets-stores
+    - name: democratic-csi-local-path
   prune: true
   sourceRef:
     kind: GitRepository

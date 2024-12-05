@@ -70,8 +70,7 @@ spec:
           - hosts:
               - *host
     persistence:
-      assets:
-        enabled: true
-        type: emptyDir
+      gcsim-assets-cache:
+        existingClaim: gcsim-assets-cache
         globalMounts:
           - path: /cache
