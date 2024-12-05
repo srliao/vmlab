@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/genshinsim/assets-develop
-              tag: nightly@sha256:b7de2c4233f3755f638ca6113dafe786d6ec477244749c0c5660471459884c53
+              tag: v2.29.4 # {"$imagepolicy": "flux-system:gcsim-assets:tag"}
               pullPolicy: Always
             envFrom:
               - secretRef:

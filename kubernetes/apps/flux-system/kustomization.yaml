@@ -5,3 +5,5 @@ resources:
   - ./namespace.yaml
   - ./webhooks/ks.yaml
   - ./discord-notification/ks.yaml
+  - ./imageupdateautomation.yaml
+  - ./imagepolicies.yaml

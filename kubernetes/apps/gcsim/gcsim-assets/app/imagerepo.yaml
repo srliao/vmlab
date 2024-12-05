@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: gcsim-assets
+  namespace: flux-system
+  labels:
+    repo: genshinsim
+spec:
+  image: ghcr.io/genshinsim/assets-develop
+  interval: 2m0s
+  accessFrom:
+    namespaceSelectors:
+      - matchLabels:
+          kubernetes.io/metadata.name: flux-system
