@@ -38,8 +38,6 @@ spec:
                 mountPath: config
           volumes:
             - name: config 
-              type: secret
-              configMap:
-                name: rclone-sync-secret 
-                defaultMode: 0777
+              secret:
+                secretName: rclone-sync-secret
           restartPolicy: Never
