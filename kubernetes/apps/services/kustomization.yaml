@@ -10,4 +10,3 @@ resources:
   # - ./gitea/ks.yaml
   - ./sshwifty/ks.yaml
   - ./mealie/ks.yaml
-  - ./d2map/ks.yaml
