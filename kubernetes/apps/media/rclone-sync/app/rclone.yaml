@@ -37,7 +37,7 @@ spec:
             - --multi-thread-streams=4 
             - --filter-from=/filters/filter-list.txt 
             - --progress 
-            - --partial-suffix 
+            - --partial-suffix=.partial
             - --log-level=INFO
             securityContext:
               runAsUser: 105000      
