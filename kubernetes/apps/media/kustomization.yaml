@@ -19,4 +19,4 @@ resources:
   - ./openbooks/ks.yaml
   - ./kavita/ks.yaml
   - ./metube/ks.yaml
-  # - ./rclone-sync/ks.yaml
+  - ./rclone-sync/ks.yaml

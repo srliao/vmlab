@@ -6,7 +6,7 @@ metadata:
   labels:
     repo: home-kubernetes
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/2 * * * *"
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 45
   # ttlSecondsAfterFinished: 100
@@ -27,17 +27,37 @@ spec:
           - name: rclone-remote-sync 
             image: rclone/rclone 
             imagePullPolicy: IfNotPresent
-            command:
-            - |
-              rclone listremotes 
+            args:
+            - sync
+            - remotedata:/home/gimmeabreak/completed
+            - /storage/media/data/sync 
+            - --dry-run 
+            - --config /config/rclone.conf 
+            - --multi-thread-cutoff 50M 
+            - --multi-thread-streams 4 
+            - --filter-from /filters/filter-list.txt 
+            - --progress 
+            - --partial-suffix 
+            - --log-level INFO
             securityContext:
               runAsUser: 105000      
               runAsGroup: 105000     
             volumeMounts:
               - name: config
                 mountPath: config
+              - name: filters
+                mountPath: filters
+              - name: storage
+                mountPath: /storage/media/data
           volumes:
             - name: config 
               secret:
                 secretName: rclone-sync-secret
+            - name: filters
+              configMap:
+                name: rclone-filter-configmap
+            - name: storage
+              nfs:
+                server: 192.168.100.5
+                path: /storage/media/data
           restartPolicy: Never
