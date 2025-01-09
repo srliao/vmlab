@@ -17,7 +17,7 @@ spec:
       labels:
         cronjob: rclone-remote-sync 
     spec:
-      backoffLimit: 1
+      backoffLimit: 0
       template:
         metadata:
           labels:
@@ -30,8 +30,8 @@ spec:
             args:
             - sync
             - remotedata:/home/gimmeabreak/completed
-            - /storage/media/data/sync 
-            - --dry-run 
+            - /storage/media/data/completed 
+            # - --dry-run 
             - --config=/config/rclone.conf 
             - --multi-thread-cutoff=50M 
             - --multi-thread-streams=4 
