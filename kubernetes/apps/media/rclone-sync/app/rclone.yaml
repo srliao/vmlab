@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: rclone-sync 
+  namespace: media
+  labels:
+    repo: home-kubernetes
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 45
+  # ttlSecondsAfterFinished: 100
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    metadata:
+      labels:
+        cronjob: rclone-remote-sync 
+    spec:
+      backoffLimit: 1
+      template:
+        metadata:
+          labels:
+            cronjob: rclone-remote-sync
+        spec:
+          containers:
+          - name: rclone-remote-sync 
+            image: rclone/rclone 
+            imagePullPolicy: IfNotPresent
+            command:
+            - |
+              rclone listremotes 
+            securityContext:
+              runAsUser: 105000      
+              runAsGroup: 105000     
+            volumeMounts:
+              - name: config
+                mountPath: config
+          volumes:
+            - name: config 
+              type: secret
+              configMap:
+                name: rclone-sync-secret 
+                defaultMode: 0777
+          restartPolicy: Never
