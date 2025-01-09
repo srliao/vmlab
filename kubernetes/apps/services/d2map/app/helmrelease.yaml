@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.4/charts/library/common/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app d2map
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      d2map:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 105000 
+            runAsGroup: 105000 
+            runAsNonRoot: true
+            fsGroup: 105000 
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          app:
+            image:
+              repository: docker.io/blacha/diablo2 
+              tag: latest 
+            env:
+              TZ: America/Toronto
+              DIABLO2_CLUSTER_SIZE: 2
+    service:
+      app:
+        controller: d2map
+        ports:
+          http:
+            port: &port 8899
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host "d2map.winterspring.ca"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      data:
+        type: nfs
+        server: 192.168.100.5
+        path: /storage/media/games/d2-113c
+        globalMounts:
+          - path: /app/game
