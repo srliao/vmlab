@@ -70,6 +70,6 @@ spec:
       data:
         type: nfs
         server: 192.168.100.5
-        path: /storage/media/games/d2-113c
+        path: /storage/media/games/d2_113c
         globalMounts:
           - path: /app/game
