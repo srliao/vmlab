@@ -32,13 +32,13 @@ spec:
             - remotedata:/home/gimmeabreak/completed
             - /storage/media/data/sync 
             - --dry-run 
-            - --config /config/rclone.conf 
-            - --multi-thread-cutoff 50M 
-            - --multi-thread-streams 4 
-            - --filter-from /filters/filter-list.txt 
+            - --config=/config/rclone.conf 
+            - --multi-thread-cutoff=50M 
+            - --multi-thread-streams=4 
+            - --filter-from=/filters/filter-list.txt 
             - --progress 
             - --partial-suffix 
-            - --log-level INFO
+            - --log-level=INFO
             securityContext:
               runAsUser: 105000      
               runAsGroup: 105000     
