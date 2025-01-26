@@ -66,7 +66,7 @@ spec:
         className: internal
         annotations:
           hajimari.io/appName: "Change Detection"
-          hajimari.io/icon: https://github.com/walkxcode/dashboard-icons/blob/main/png/changedetection-io.png?raw=true
+          hajimari.io/icon: https://raw.githubusercontent.com/homarr-labs/dashboard-icons/refs/heads/main/svg/changedetection.svg
         hosts:
           - host: &host '{{ .Release.Name }}.winterspring.ca'
             paths:
