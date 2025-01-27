@@ -10,3 +10,4 @@ resources:
   # - ./gitea/ks.yaml
   - ./sshwifty/ks.yaml
   - ./mealie/ks.yaml
+  - ./flaresolverr/ks.yaml
