@@ -20,3 +20,4 @@ resources:
   - ./kavita/ks.yaml
   - ./metube/ks.yaml
   - ./rclone-sync/ks.yaml
+  - ./suwayomi/ks.yaml
