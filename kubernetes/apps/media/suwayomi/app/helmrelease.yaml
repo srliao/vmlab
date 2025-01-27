@@ -35,21 +35,6 @@ spec:
               tag: v1.1.1-r1673 
             env:
               TZ: America/Toronto
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthcheck
-                    port: &port 80
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
