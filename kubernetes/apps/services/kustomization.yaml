@@ -11,3 +11,4 @@ resources:
   - ./sshwifty/ks.yaml
   - ./mealie/ks.yaml
   - ./flaresolverr/ks.yaml
+  - ./silverbullet/ks.yaml
