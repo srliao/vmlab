@@ -37,10 +37,10 @@ spec:
               TZ: America/Toronto
             resources:
               requests:
-                cpu: 10m
-                memory: 512Mi
+                cpu: 100m
+                memory: 2Gi
               limits:
-                memory: 512Mi
+                memory: 8Gi
         pod:
           securityContext:
             runAsUser: 105000
