@@ -31,7 +31,7 @@ spec:
 
     image:
       repository: gitea/gitea
-      tag: 1.22.1
+      tag: 1.23.5
       pullPolicy: "Always"
       rootless: true
 
