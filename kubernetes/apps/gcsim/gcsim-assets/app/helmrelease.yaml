@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/genshinsim/assets-develop
-              tag: v2.32.4 # {"$imagepolicy": "flux-system:gcsim-assets:tag"}
+              tag: v2.33.0 # {"$imagepolicy": "flux-system:gcsim-assets:tag"}
               pullPolicy: Always
             envFrom:
               - secretRef:
