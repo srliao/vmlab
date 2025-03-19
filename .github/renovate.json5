@@ -65,10 +65,12 @@
       "description": ["Auto merge media apps"],
       "matchDatasources": ["docker"],
       "matchPackageNames": [
-        "ghcr.io/onedr0p/sonarr",
-        "ghcr.io/onedr0p/radarr",
-        "ghcr.io/onedr0p/sabnzbd",
-        "ghcr.io/onedr0p/tautulli",
+        "ghcr.io/home-operations/sonarr",
+        "ghcr.io/home-operations/radarr",
+        "ghcr.io/home-operations/prowlarr",
+        "ghcr.io/home-operations/plex",
+        "ghcr.io/home-operations/sabnzbd",
+        "ghcr.io/home-operations/tautulli",
         "ghcr.io/advplyr/audiobookshelf",
         "ghcr.io/sct/overseerr"
       ],
