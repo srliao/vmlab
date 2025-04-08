@@ -54,6 +54,11 @@ tasks:
     cmds:
       - talosctl ls {{.CLI_ARGS}} -e 192.168.100.80 -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}}
 
+  recover-kubeconfig:
+    desc: run get kubernetes command
+    cmds:
+      - talosctl kubeconfig -e 192.168.100.80 -n 192.168.100.80 --talosconfig {{.TALOS_CONFIG_FILE}}
+
   upgrade-talos:
     desc: Upgrade talos on a node
     cmd: talosctl --nodes {{.node}} upgrade --image {{.image}} --preserve=true --reboot-mode=default
