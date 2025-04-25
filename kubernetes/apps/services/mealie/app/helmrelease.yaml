@@ -87,6 +87,11 @@ spec:
         existingClaim: mealie
         globalMounts:
           - path: /app/data
+      nltk:
+        enabled: true
+        existingClaim: mealie-nltk
+        globalMounts:
+          - path: /nltk_data
       backups:
         type: nfs
         server: 192.168.100.5
