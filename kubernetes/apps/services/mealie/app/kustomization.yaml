@@ -6,3 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ../../../../templates/volsync
+  # additional pvc for mealie
+  - ./pvc.yaml
+  - ./bootstrap.yaml
+  - ./minio

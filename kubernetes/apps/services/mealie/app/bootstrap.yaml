@@ -1,0 +1,24 @@
+## Attempts to restore the newly created PVC during its initial creation
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: mealie-nltk-bootstrap
+spec:
+  trigger:
+    manual: restore-once-bootstrap
+  restic:
+    repository: mealie-nltk-volsync-minio
+    copyMethod: Snapshot
+    volumeSnapshotClassName: local-hostpath
+    storageClassName: local-hostpath
+    cacheStorageClassName: local-hostpath
+    cacheCapacity: 1Gi
+    cacheAccessModes: ["ReadWriteOnce"]
+    capacity: 1Gi
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
