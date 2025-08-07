@@ -12,4 +12,4 @@ resources:
   - ./mealie/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./silverbullet/ks.yaml
-  - ./frigate-notify/ks.yml
+  - ./frigate-notify/ks.yaml
