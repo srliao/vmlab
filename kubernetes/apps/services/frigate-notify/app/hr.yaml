@@ -50,6 +50,23 @@ spec:
         ports:
           http:
             port: 8000
+    # ingress is so we can access the api
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host '{{ .Release.Name }}.winterspring.ca'
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       config-file:
         type: configMap
