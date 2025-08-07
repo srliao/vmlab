@@ -1,14 +1,14 @@
 app:
   mode: reviews
   api:
-    enabled: false
+    enabled: true
 
 frigate:
   server: 192.168.100.60:5000
   ignoressl: true
 
   webapi:
-    enabled: true
+    enabled: false
 
   mqtt: 
     enabled: true
