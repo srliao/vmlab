@@ -4,7 +4,7 @@ app:
     enabled: true
 
 frigate:
-  server: 192.168.100.60:5000
+  server: http://192.168.100.60:5000
   ignoressl: true
 
   webapi:
