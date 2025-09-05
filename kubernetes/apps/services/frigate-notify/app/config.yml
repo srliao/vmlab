@@ -10,7 +10,7 @@ frigate:
   webapi:
     enabled: false
 
-  mqtt: 
+  mqtt:
     enabled: true
     server: 192.168.100.60
     port: 1883
@@ -23,7 +23,7 @@ frigate:
   #   exclude:
   #     - test_cam_01
 
-alerts:  
+alerts:
   general:
     # title:
     # timeformat:
@@ -34,7 +34,7 @@ alerts:
     # snap_hires:
     # max_snap_retry:
     # notify_once:
-    notify_detections: true
+    notify_detections: false
     # recheck_delay:
     # audio_only:
 
@@ -86,7 +86,7 @@ alerts:
   # gotify:
   #   enabled: false
   #   server:
-  #   token: 
+  #   token:
   #   ignoressl:
   #   template:
 
@@ -139,9 +139,9 @@ alerts:
 
   # smtp:
   #   enabled: false
-  #   server: 
-  #   port: 
-  #   tls: 
+  #   server:
+  #   port:
+  #   tls:
   #   user:
   #   password:
   #   recipient:
@@ -158,7 +158,7 @@ alerts:
 
   # webhook:
   #   enabled: false
-  #   server: 
+  #   server:
   #   ignoressl:
   #   method:
   #   params:
@@ -168,6 +168,6 @@ alerts:
 
 # monitor:
 #   enabled: false
-#   url: 
-#   interval: 
+#   url:
+#   interval:
 #   ignoressl:
