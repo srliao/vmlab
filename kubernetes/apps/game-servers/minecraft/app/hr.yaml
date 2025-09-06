@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   install:
-    timeout: 5m # 10min too long
+    timeout: 15m # back to 15min cause it takes forever to start
     replace: true
     crds: CreateReplace
     createNamespace: true
