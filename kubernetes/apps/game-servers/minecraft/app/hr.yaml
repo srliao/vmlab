@@ -6,7 +6,7 @@ metadata:
   name: &app minecraft
   namespace: game-servers
 spec:
-  interval: 5m
+  interval: 1h
   timeout: 15m
   chart:
     spec:
@@ -18,29 +18,12 @@ spec:
         namespace: flux-system
       interval: 5m
   install:
-    timeout: 30m # back to 30min cause it takes forever to start
-    replace: true
-    crds: CreateReplace
-    createNamespace: true
     remediation:
       retries: 0 # if it fails stop trying prob config is wrong
   upgrade:
     remediation:
-      remediateLastFailure: true
       retries: 3
-      strategy: rollback
     cleanupOnFail: true
-    crds: CreateReplace
-  test:
-    enable: true
-  rollback:
-    recreate: true
-    force: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: true
-  driftDetection:
-    mode: enabled
   maxHistory: 3
   values:
     fullnameOverride: *app

@@ -11,8 +11,8 @@ extraEnv:
 #   initialDelaySeconds: 600
 # readinessProbe:
 #   initialDelaySeconds: 600
-# startupProbe:
-#   enabled: false
+startupProbe:
+  enabled: true
 
 minecraftServer:
   serverName: Matthew Minecraft Server
