@@ -7,10 +7,11 @@ extraEnv:
   # WARNING: setting this to true deletes your previous world data
   FORCE_WORLD_COPY: false
 
-# livenessProbe:
-#   initialDelaySeconds: 600
-# readinessProbe:
-#   initialDelaySeconds: 600
+# it takes almost 5 min for server to be ready
+livenessProbe:
+  initialDelaySeconds: 300
+readinessProbe:
+  initialDelaySeconds: 300
 # startupProbe:
 #   enabled: true
 
