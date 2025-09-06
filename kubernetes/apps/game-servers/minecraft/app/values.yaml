@@ -6,7 +6,7 @@ minecraftServer:
   serverName: Matthew Minecraft Server
   eula: "TRUE"
   type: PAPER
-  # version: LATEST
+  version: 1.21.8
   # REQUIRED: Must use for spigot plugins that are listed as available via external sites
   pluginUrls:
     - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
@@ -15,14 +15,14 @@ minecraftServer:
     - 34315 # Vault
   modrinth:
     projects:
-      - multiverse-core
-      - essentialsx
-      - worldguard
-      - worldedit
-      - dynmap
-      - viaversion
-      - viarewind
-      - viabackwards
+      - multiverse-core:cdhFMf2E
+      - essentialsx:Oa9ZDzZq
+      - worldguard:PO4MKx7e
+      - worldedit:Jk1z2u7n
+      - dynmap:ImNNT17B
+      - viaversion:Xkqqslki
+      - viarewind:oFZfhvN1
+      - viabackwards:hze7oZGF
       # - luckperms
     downloadDependencies: required
     allowedVersionType: beta
