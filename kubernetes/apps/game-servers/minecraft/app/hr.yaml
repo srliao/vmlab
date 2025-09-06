@@ -48,7 +48,7 @@ spec:
     # if this is true then downloadWorldUrl is always loaded on restart
     # useful for resetting the world but should be reset to false afterwards
     # WARNING: setting this to true deletes your previous world data
-    FORCE_WORLD_COPY: false
+    FORCE_WORLD_COPY: true
 
     # it takes almost 5 min for server to be ready
     livenessProbe:
@@ -88,7 +88,7 @@ spec:
           # for example: https://modrinth.com/plugin/dynmap, where dynmap is the project slug;
           - multiverse-core:cdhFMf2E
           - essentialsx:Oa9ZDzZq
-          - worldguard:PO4MKx7e
+          # - worldguard:PO4MKx7e
           - worldedit:Jk1z2u7n
           - dynmap:ImNNT17B
           - viaversion:Xkqqslki
