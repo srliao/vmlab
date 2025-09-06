@@ -43,6 +43,8 @@ spec:
   maxHistory: 3
   values:
     fullnameOverride: *app
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "192.168.100.46"
     # not using geyser for now - no bedrock clients
@@ -58,5 +60,5 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: mincraft-values
-    - kind: Secret
-      name: mincraft-secret
+    # - kind: Secret
+    #   name: mincraft-secret
