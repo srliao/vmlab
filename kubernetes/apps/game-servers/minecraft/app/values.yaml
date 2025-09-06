@@ -6,7 +6,7 @@ minecraftServer:
   serverName: Matthew Minecraft Server
   eula: "TRUE"
   type: PAPER
-  version: 1.21.6
+  # version: LATEST
   # REQUIRED: Must use for spigot plugins that are listed as available via external sites
   pluginUrls:
     - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
