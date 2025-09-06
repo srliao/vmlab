@@ -1,6 +1,6 @@
 extraEnv:
   TZ: "America/Toronto"
-  VERSION_FROM_MODRINTH_PROJECTS: true
+  # VERSION_FROM_MODRINTH_PROJECTS: true
 
 minecraftServer:
   serverName: Matthew Minecraft Server
