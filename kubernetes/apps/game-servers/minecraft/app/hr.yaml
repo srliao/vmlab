@@ -22,7 +22,7 @@ spec:
     crds: CreateReplace
     createNamespace: true
     remediation:
-      retries: -1
+      retries: 0 # if it fails stop trying prob config is wrong
   upgrade:
     remediation:
       remediateLastFailure: true
