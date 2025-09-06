@@ -41,8 +41,125 @@ spec:
     #       - name: geyser-config-volume
     #         configMap:
     #           name: geysermc-config
-  valuesFrom:
-    - kind: ConfigMap
-      name: mincraft-values
+    extraEnv:
+    TZ: "America/Toronto"
+    ENABLE_ROLLING_LOGS: true
+    OVERRIDE_SERVER_PROPERTIES: true
+    # if this is true then downloadWorldUrl is always loaded on restart
+    # useful for resetting the world but should be reset to false afterwards
+    # WARNING: setting this to true deletes your previous world data
+    FORCE_WORLD_COPY: false
+
+    # it takes almost 5 min for server to be ready
+    livenessProbe:
+      command:
+        - mc-health
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      failureThreshold: 30
+      successThreshold: 1
+    readinessProbe:
+      command:
+        - mc-health
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      failureThreshold: 30
+      successThreshold: 1
+    # startupProbe:
+    #   enabled: true
+
+    # documentation site for docker image: https://docker-minecraft-server.readthedocs.io/en/latest/variables/
+    # helm-chart should expose most of these options
+
+    minecraftServer:
+      serverName: Matthew Minecraft Server
+      eula: "TRUE"
+      type: PAPER
+      version: 1.21.4
+      # REQUIRED: Must use for spigot plugins that are listed as available via external sites
+      pluginUrls:
+        - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+        - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+      spigetResources:
+        - 34315 # Vault
+      modrinth:
+        projects:
+          # project follows the format <project-slug>:<version-id>
+          # for example: https://modrinth.com/plugin/dynmap, where dynmap is the project slug;
+          - multiverse-core:cdhFMf2E
+          - essentialsx:Oa9ZDzZq
+          - worldguard:PO4MKx7e
+          - worldedit:Jk1z2u7n
+          - dynmap:ImNNT17B
+          - viaversion:Xkqqslki
+          - viarewind:oFZfhvN1
+          - viabackwards:hze7oZGF
+          # - luckperms
+        downloadDependencies: required
+        allowedVersionType: beta
+      resourcePackUrl: https://download.geysermc.org/v2/projects/geyseroptionalpack/versions/latest/builds/latest/downloads/geyseroptionalpack
+      maxPlayers: 10
+      maxTickTime: -1
+
+      # world map setings
+      worldSaveName: world
+      downloadWorldUrl: https://mediafilez.forgecdn.net/files/5508/877/earth.zip
+
+      # game mode settings
+      forcegameMode: true
+      gameMode: creative
+      difficulty: peaceful
+      hardcore: false
+      pvp: false
+      cheats: true
+      onlineMode: false
+      motd: "Welcome to Minecraft on Kubernetes!"
+      playerIdleTimeout: 10
+      removeOldMods: true
+
+      memory: 3072M
+      rcon:
+        enabled: true
+        existingSecret: minecraft-secret
+      serviceType: LoadBalancer
+      extraPorts:
+        # - name: geysermc
+        #   containerPort: 19132
+        #   protocol: UDP
+        #   service:
+        #     enabled: true
+        #     embedded: true
+        #     port: 19132
+        - name: dynmap
+          containerPort: 8123
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            port: 8123
+      overrideServerProperties: true
+
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: 1
+        ephemeral-storage: "1Gi"
+
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: minecraft
+
+    podSecurityContext:
+      runAsUser: 105000
+      runAsGroup: 105000
+      runAsNonRoot: true
+      fsGroup: 105000
+      seccompProfile:
+        type: RuntimeDefault
+
+  # valuesFrom:
+  #   - kind: ConfigMap
+  #     name: mincraft-values
     # - kind: Secret
     #   name: mincraft-secret

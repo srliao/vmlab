@@ -8,11 +8,11 @@ resources:
   - ./externalsecret.yaml
   - ../../../../templates/volsync
 
-configMapGenerator:
-  - name: mincraft-values
-    namespace: game-servers
-    files:
-      - values.yaml=./values.yaml
+# configMapGenerator:
+#   - name: mincraft-values
+#     namespace: game-servers
+#     files:
+#       - values.yaml=./values.yaml
 
 # secretGenerator:
 #   - name: mincraft-secret-values
