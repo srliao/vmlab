@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   # Flux Kustomizations
-  - ./minecraft/ks.yaml
+  # - ./minecraft/ks.yaml
