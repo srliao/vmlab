@@ -9,9 +9,9 @@ extraEnv:
 
 # it takes almost 5 min for server to be ready
 livenessProbe:
-  initialDelaySeconds: 300
+  initialDelaySeconds: 120
 readinessProbe:
-  initialDelaySeconds: 300
+  initialDelaySeconds: 120
 # startupProbe:
 #   enabled: true
 
