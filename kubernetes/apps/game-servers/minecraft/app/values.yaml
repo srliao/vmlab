@@ -2,6 +2,25 @@ extraEnv:
   TZ: "America/Toronto"
   # VERSION_FROM_MODRINTH_PROJECTS: true
 
+livenessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 600
+  periodSeconds: 5
+  failureThreshold: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 600
+  periodSeconds: 5
+  failureThreshold: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+startupProbe:
+  enabled: false
+
 minecraftServer:
   serverName: Matthew Minecraft Server
   eula: "TRUE"
@@ -66,8 +85,8 @@ minecraftServer:
 
 resources:
   requests:
-    memory: 3Gi
-    cpu: 1
+    memory: 8Gi
+    cpu: 2
     ephemeral-storage: "1Gi"
 
 persistence:
