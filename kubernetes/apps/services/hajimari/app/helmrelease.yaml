@@ -75,7 +75,7 @@ spec:
             # icon: simple-icons:minio
             icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/minio.svg
           - name: Frigate
-            url: "http://192.168.100.44:5000"
+            url: "http://192.168.100.60:5000"
             icon: https://github.com/walkxcode/dashboard-icons/raw/main/svg/frigate.svg
       globalBookmarks:
         - group: Dev
