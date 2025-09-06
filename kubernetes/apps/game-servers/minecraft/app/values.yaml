@@ -7,10 +7,10 @@ extraEnv:
   # WARNING: setting this to true deletes your previous world data
   FORCE_WORLD_COPY: false
 
-livenessProbe:
-  initialDelaySeconds: 600
-readinessProbe:
-  initialDelaySeconds: 600
+# livenessProbe:
+#   initialDelaySeconds: 600
+# readinessProbe:
+#   initialDelaySeconds: 600
 # startupProbe:
 #   enabled: true
 
@@ -18,7 +18,7 @@ minecraftServer:
   serverName: Matthew Minecraft Server
   eula: "TRUE"
   type: PAPER
-  version: 1.21.8
+  version: 1.21.4
   # REQUIRED: Must use for spigot plugins that are listed as available via external sites
   pluginUrls:
     - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
