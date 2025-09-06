@@ -3,21 +3,9 @@ extraEnv:
   # VERSION_FROM_MODRINTH_PROJECTS: true
 
 livenessProbe:
-  command:
-    - mc-health
   initialDelaySeconds: 600
-  periodSeconds: 5
-  failureThreshold: 20
-  successThreshold: 1
-  timeoutSeconds: 1
 readinessProbe:
-  command:
-    - mc-health
   initialDelaySeconds: 600
-  periodSeconds: 5
-  failureThreshold: 20
-  successThreshold: 1
-  timeoutSeconds: 1
 startupProbe:
   enabled: false
 
@@ -34,6 +22,8 @@ minecraftServer:
     - 34315 # Vault
   modrinth:
     projects:
+      # project follows the format <project-slug>:<version-id>
+      # for example: https://modrinth.com/plugin/dynmap, where dynmap is the project slug;
       - multiverse-core:cdhFMf2E
       - essentialsx:Oa9ZDzZq
       - worldguard:PO4MKx7e
