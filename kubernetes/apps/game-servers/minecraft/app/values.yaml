@@ -1,5 +1,6 @@
 extraEnv:
   TZ: "America/Toronto"
+  VERSION_FROM_MODRINTH_PROJECTS: true
 
 minecraftServer:
   serverName: Matthew Minecraft Server
@@ -14,10 +15,10 @@ minecraftServer:
     - 34315 # Vault
   modrinth:
     projects:
-      # - multiverse-core
-      # - essentialsx
-      # - worldguard
-      # - worldedit
+      - multiverse-core
+      - essentialsx
+      - worldguard
+      - worldedit
       - dynmap
       - viaversion
       - viarewind
