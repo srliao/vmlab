@@ -45,6 +45,7 @@ minecraftServer:
   maxPlayers: 4
   maxTickTime: -1
   gameMode: creative
+  difficulty: peaceful
   hardcore: false
   pvp: false
   worldSaveName: world
