@@ -1,13 +1,18 @@
 extraEnv:
   TZ: "America/Toronto"
-  # VERSION_FROM_MODRINTH_PROJECTS: true
+  ENABLE_ROLLING_LOGS: true
+  OVERRIDE_SERVER_PROPERTIES: true
+  # if this is true then downloadWorldUrl is always loaded on restart
+  # useful for resetting the world but should be reset to false afterwards
+  # WARNING: setting this to true deletes your previous world data
+  FORCE_WORLD_COPY: false
 
-livenessProbe:
-  initialDelaySeconds: 600
-readinessProbe:
-  initialDelaySeconds: 600
-startupProbe:
-  enabled: false
+# livenessProbe:
+#   initialDelaySeconds: 600
+# readinessProbe:
+#   initialDelaySeconds: 600
+# startupProbe:
+#   enabled: false
 
 minecraftServer:
   serverName: Matthew Minecraft Server
@@ -38,7 +43,7 @@ minecraftServer:
   resourcePackUrl: https://download.geysermc.org/v2/projects/geyseroptionalpack/versions/latest/builds/latest/downloads/geyseroptionalpack
   maxPlayers: 4
   maxTickTime: -1
-  gameMode: survival
+  gameMode: creative
   hardcore: false
   pvp: false
   worldSaveName: world
@@ -75,8 +80,8 @@ minecraftServer:
 
 resources:
   requests:
-    memory: 8Gi
-    cpu: 2
+    memory: 2Gi
+    cpu: 1
     ephemeral-storage: "1Gi"
 
 persistence:
