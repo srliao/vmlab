@@ -11,14 +11,14 @@ extraEnv:
 #   initialDelaySeconds: 600
 # readinessProbe:
 #   initialDelaySeconds: 600
-startupProbe:
-  enabled: true
+# startupProbe:
+#   enabled: true
 
 minecraftServer:
   serverName: Matthew Minecraft Server
   eula: "TRUE"
   type: PAPER
-  version: 1.21.4
+  version: 1.21.8
   # REQUIRED: Must use for spigot plugins that are listed as available via external sites
   pluginUrls:
     - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
