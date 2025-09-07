@@ -48,7 +48,7 @@ spec:
     # if this is true then downloadWorldUrl is always loaded on restart
     # useful for resetting the world but should be reset to false afterwards
     # WARNING: setting this to true deletes your previous world data
-    FORCE_WORLD_COPY: true
+    FORCE_WORLD_COPY: false
 
     # it takes almost 5 min for server to be ready
     livenessProbe:
@@ -103,7 +103,7 @@ spec:
 
       # world map setings
       worldSaveName: world
-      downloadWorldUrl: https://mediafilez.forgecdn.net/files/5508/877/earth.zip
+      # downloadWorldUrl: https://mediafilez.forgecdn.net/files/5508/877/earth.zip
 
       # game mode settings
       forcegameMode: true
