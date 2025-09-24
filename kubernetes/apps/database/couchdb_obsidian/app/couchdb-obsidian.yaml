@@ -32,7 +32,7 @@ spec:
       - envFrom:
         - secretRef:
             name: couchdb-obsidian-secrets
-        image: couchdb:3.5.0
+        image: docker.io/library/couchdb:3.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -65,7 +65,7 @@ spec:
         - /bin/sh
         - -c
         - cp /tmp/config/*.ini /opt/couchdb/etc/default.d/; ls -lrt /opt/couchdb/etc/default.d;
-        image: busybox:latest
+        image: docker.io/library/busybox:latest
         imagePullPolicy: IfNotPresent
         name: init-config
         volumeMounts:

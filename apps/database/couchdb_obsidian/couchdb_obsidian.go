@@ -22,8 +22,8 @@ const (
 )
 
 var imageSpec = &klusterhelper.ImageSpec{
-	Name: "couchdb",
-	Tag:  "3.5.0",
+	Repository: "docker.io/library/couchdb",
+	Tag:        "3.5.0",
 }
 
 //go:embed config.ini
@@ -66,8 +66,8 @@ func deployment() klusterhelper.KubeResource {
 	init := defaults.
 		NewContainer(
 			"init-config", &klusterhelper.ImageSpec{
-				Name: "busybox",
-				Tag:  "latest",
+				Repository: "docker.io/library/busybox",
+				Tag:        "latest",
 			}).
 		AddCommands(
 			"/bin/sh",
