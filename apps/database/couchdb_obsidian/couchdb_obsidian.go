@@ -72,7 +72,9 @@ func deployment() klusterhelper.KubeResource {
 			"-c",
 			"cp /tmp/config/*.ini /opt/couchdb/etc/default.d/; ls -lrt /opt/couchdb/etc/default.d;",
 		).
-		MountVolume(configIniMapName, "/tmp/config")
+		MountVolume(configIniMapName, "/tmp/config").
+		MountVolume(configStorage, "/opt/couchdb/etc/local.d").
+		MountVolume(dataPVC, "/opt/couchdb/data")
 
 	// app container
 	container := defaults.

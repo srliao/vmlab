@@ -71,6 +71,10 @@ spec:
         volumeMounts:
         - mountPath: /tmp/config
           name: obsidian-couchdb-configmap
+        - mountPath: /opt/couchdb/etc/local.d
+          name: config-storage
+        - mountPath: /opt/couchdb/data
+          name: data
       restartPolicy: Always
       volumes:
       - configMap:
