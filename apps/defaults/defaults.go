@@ -55,7 +55,8 @@ func NewDeployment(name, namespace string) *klusterhelper.DeploymentWrapper {
 				Labels:    Labels(name),
 			},
 			Spec: appsv1.DeploymentSpec{
-				Replicas: klusterhelper.Int32Ptr(1),
+				Replicas:             klusterhelper.Int32Ptr(1),
+				RevisionHistoryLimit: klusterhelper.Int32Ptr(1),
 				Selector: &metav1.LabelSelector{
 					MatchLabels: Labels(name),
 				},
