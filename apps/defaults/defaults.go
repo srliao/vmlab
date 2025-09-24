@@ -3,11 +3,13 @@ package defaults
 import (
 	"path/filepath"
 
+	esv1beta1 "github.com/external-secrets/external-secrets/apis/externalsecrets/v1beta1"
 	fluxv1 "github.com/fluxcd/kustomize-controller/api/v1"
 	"github.com/srliao/vmlab/pkg/klusterhelper"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	networkingv1 "k8s.io/api/networking/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -55,6 +57,15 @@ func NewDeployment(name, namespace string) *klusterhelper.DeploymentWrapper {
 				Replicas: klusterhelper.Int32Ptr(1),
 				Selector: &metav1.LabelSelector{
 					MatchLabels: Labels(name),
+				},
+				Template: corev1.PodTemplateSpec{
+					ObjectMeta: metav1.ObjectMeta{
+						// don't provide a name because we want k8s to auto-generate one
+						Labels: Labels(name),
+					},
+					Spec: corev1.PodSpec{
+						RestartPolicy: corev1.RestartPolicyAlways,
+					},
 				},
 			},
 		},
@@ -161,4 +172,95 @@ func NewDefaultIngressRules(host, service string, port int32) []networkingv1.Ing
 			},
 		},
 	}
+}
+
+func NewES(name, target string) *klusterhelper.ExternalSecretWrapper {
+	return &klusterhelper.ExternalSecretWrapper{
+		ExternalSecret: &esv1beta1.ExternalSecret{
+			TypeMeta: metav1.TypeMeta{
+				APIVersion: "external-secrets.io/v1beta1",
+				Kind:       "ExternalSecret",
+			},
+			ObjectMeta: metav1.ObjectMeta{
+				Name: name,
+			},
+			Spec: esv1beta1.ExternalSecretSpec{
+				SecretStoreRef: esv1beta1.SecretStoreRef{
+					Name: "onepassword-connect",
+					Kind: "ClusterSecretStore",
+				},
+				Target: esv1beta1.ExternalSecretTarget{
+					Name: target,
+					Template: &esv1beta1.ExternalSecretTemplate{
+						EngineVersion: esv1beta1.TemplateEngineV2,
+					},
+				},
+			},
+		},
+	}
+}
+
+func NewESWithDataAndKey(name, target string, data map[string]string, keys ...string) *klusterhelper.ExternalSecretWrapper {
+	es := &klusterhelper.ExternalSecretWrapper{
+		ExternalSecret: &esv1beta1.ExternalSecret{
+			TypeMeta: metav1.TypeMeta{
+				APIVersion: "external-secrets.io/v1beta1",
+				Kind:       "ExternalSecret",
+			},
+			ObjectMeta: metav1.ObjectMeta{
+				Name: name,
+			},
+			Spec: esv1beta1.ExternalSecretSpec{
+				SecretStoreRef: esv1beta1.SecretStoreRef{
+					Name: "onepassword-connect",
+					Kind: "ClusterSecretStore",
+				},
+				Target: esv1beta1.ExternalSecretTarget{
+					Name: target,
+					Template: &esv1beta1.ExternalSecretTemplate{
+						EngineVersion: esv1beta1.TemplateEngineV2,
+					},
+				},
+			},
+		},
+	}
+	for k, v := range data {
+		es.AddDataToTemplate(k, v)
+	}
+	for _, k := range keys {
+		es.AddExternalDataFromKeyExtract(k)
+	}
+	return es
+}
+
+func NewPVC(claimName, namespace string, size string) *klusterhelper.PersistentVolumeClaimWrapper {
+	filesystem := corev1.PersistentVolumeFilesystem
+	return &klusterhelper.PersistentVolumeClaimWrapper{
+		PersistentVolumeClaim: &corev1.PersistentVolumeClaim{
+			TypeMeta: metav1.TypeMeta{
+				APIVersion: "v1",
+				Kind:       "PersistentVolumeClaim",
+			},
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      claimName,
+				Namespace: namespace,
+			},
+			Spec: corev1.PersistentVolumeClaimSpec{
+				AccessModes: []corev1.PersistentVolumeAccessMode{
+					corev1.ReadWriteOnce,
+				},
+				StorageClassName: strPtr(defaultPVCStorageClass),
+				VolumeMode:       &filesystem,
+				Resources: corev1.VolumeResourceRequirements{
+					Requests: corev1.ResourceList{
+						corev1.ResourceStorage: resource.MustParse(size),
+					},
+				},
+			},
+		},
+	}
+}
+
+func strPtr(s string) *string {
+	return &s
 }

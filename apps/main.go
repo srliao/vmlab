@@ -9,5 +9,5 @@ func main() {
 	klusterhelper.NewBuilder().
 		AddApp(couchdb_obsidian.Chart()).
 		Validate().
-		Build("./dist", true)
+		Build("../kubernetes/apps", true)
 }

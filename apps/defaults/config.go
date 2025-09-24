@@ -18,6 +18,10 @@ const (
 
 	defaultFluxReconcileInterval = time.Minute * 10
 	defaultFluxReconcileTimeout  = time.Minute * 5
+
+	defaultPVCStorageClass = "local-hostpath"
+	defaultPVCSize         = "1Gi"
+	defaultUID             = int64(568)
 )
 
 func Labels(name string) map[string]string {

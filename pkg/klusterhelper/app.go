@@ -7,12 +7,18 @@ import (
 )
 
 type App struct {
-	objects   []KubeResource
+	resources []KubeResource
+	files     []AppFile
 	ks        *FluxKustomizationWrapper
 	kust      *KustomizationWrapper
 	name      string
 	namespace string
 	subfolder string
+}
+
+type AppFile interface {
+	Name() string
+	Content() []byte
 }
 
 func NewApp(name, namespace, subfolder string) *App {
@@ -46,14 +52,36 @@ func (a *App) Kustomization() *KustomizationWrapper {
 	return a.kust
 }
 
-func (a *App) AddObject(objects ...KubeResource) *App {
-	a.objects = append(a.objects, objects...)
+func (a *App) AddObjects(objects ...KubeResource) *App {
+	a.resources = append(a.resources, objects...)
+	return a
+}
+
+func (a *App) AddFiles(files ...AppFile) *App {
+	a.files = append(a.files, files...)
 	return a
 }
 
 func (a *App) Validate() error {
-	if len(a.objects) == 0 {
+	if len(a.resources) == 0 {
 		return fmt.Errorf("no objects to validate")
 	}
 	return nil
+}
+
+type TextFile struct {
+	name    string
+	content []byte
+}
+
+func NewTextFile(name string, content []byte) *TextFile {
+	return &TextFile{name: name, content: content}
+}
+
+func (t *TextFile) Name() string {
+	return t.name
+}
+
+func (t *TextFile) Content() []byte {
+	return t.content
 }

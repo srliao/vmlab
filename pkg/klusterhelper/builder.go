@@ -58,7 +58,8 @@ func createFolder(folder string, removeExisting bool) error {
 }
 
 func (b *Builder) Build(folder string, removeExisting bool) error {
-	err := createFolder(folder, removeExisting)
+	// don't remove root; only apps
+	err := createFolder(folder, false)
 	if err != nil {
 		return err
 	}
@@ -92,7 +93,7 @@ func (b *Builder) Build(folder string, removeExisting bool) error {
 
 		// write individual resources
 		var data []byte
-		for _, obj := range c.objects {
+		for _, obj := range c.resources {
 			data = append(data, []byte("---\n")...)
 			d, err := marshalCleanYAML(obj)
 			if err != nil {
@@ -102,6 +103,13 @@ func (b *Builder) Build(folder string, removeExisting bool) error {
 		}
 		if err := os.WriteFile(filepath.Join(path, fmt.Sprintf("%s.yaml", c.name)), data, 0644); err != nil {
 			return fmt.Errorf("failed to write file: %w", err)
+		}
+
+		// write additional files
+		for _, f := range c.files {
+			if err := os.WriteFile(filepath.Join(path, f.Name()), f.Content(), 0644); err != nil {
+				return fmt.Errorf("failed to write file %s: %w", f.Name(), err)
+			}
 		}
 
 		// write kustomization.yaml
