@@ -16,7 +16,7 @@ const (
 	servicePort        = 5984
 	configIniMapName   = "obsidian-couchdb-configmap"
 	defaultLoginSecret = "couchdb-obsidian-secrets"
-	dataPVCClaimName   = "couchdb-obsidian-pvc"
+	dataPVCClaimName   = "couchdb-obsidian"
 )
 
 var imageSpec = &klusterhelper.ImageSpec{

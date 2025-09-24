@@ -79,7 +79,7 @@ spec:
       - name: config-storage
       - name: data
         persistentVolumeClaim:
-          claimName: couchdb-obsidian-pvc
+          claimName: couchdb-obsidian
 ---
 apiVersion: v1
 kind: Service
