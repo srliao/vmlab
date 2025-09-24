@@ -21,7 +21,7 @@ const (
 
 var imageSpec = &klusterhelper.ImageSpec{
 	Name: "couchdb",
-	Tag:  "sha256:2f27666c837cb9096c95e3cbd1c125651c0fa6a92594ffc9268671e4d065d6a9",
+	Tag:  "3.5.0",
 }
 
 //go:embed config.ini

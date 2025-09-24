@@ -31,7 +31,7 @@ spec:
       - envFrom:
         - secretRef:
             name: couchdb-obsidian-secrets
-        image: couchdb:sha256:2f27666c837cb9096c95e3cbd1c125651c0fa6a92594ffc9268671e4d065d6a9
+        image: couchdb:3.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
