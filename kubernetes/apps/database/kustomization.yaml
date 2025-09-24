@@ -10,3 +10,4 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./ext-postgres-operator/ks.yaml
   - ./pgadmin/ks.yaml
+  - ./couchdb_obsidian/ks.yaml
