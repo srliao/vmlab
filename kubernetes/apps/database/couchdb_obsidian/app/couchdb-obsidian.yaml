@@ -43,7 +43,6 @@ spec:
         name: couchdb-obsidian
         ports:
         - containerPort: 5984
-          hostPort: 5984
         readinessProbe:
           httpGet:
             path: /_up

@@ -11,7 +11,6 @@ type ContainerWrapper struct {
 
 func (c *ContainerWrapper) WithPort(port int32) *ContainerWrapper {
 	c.Ports = append(c.Ports, corev1.ContainerPort{
-		HostPort:      port,
 		ContainerPort: port,
 	})
 	return c
