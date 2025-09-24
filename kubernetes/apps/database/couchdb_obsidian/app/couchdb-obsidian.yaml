@@ -35,8 +35,8 @@ spec:
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
-            path: /healthcheck
-            port: 80
+            path: /_up
+            port: 5984
           periodSeconds: 10
           timeoutSeconds: 1
         name: couchdb-obsidian
@@ -45,8 +45,8 @@ spec:
           hostPort: 5984
         readinessProbe:
           httpGet:
-            path: /healthcheck
-            port: 80
+            path: /_up
+            port: 5984
           periodSeconds: 10
           timeoutSeconds: 1
         resources:

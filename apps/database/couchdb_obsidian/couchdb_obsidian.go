@@ -7,6 +7,8 @@ import (
 
 	"github.com/srliao/vmlab/apps/defaults"
 	"github.com/srliao/vmlab/pkg/klusterhelper"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 const (
@@ -86,8 +88,8 @@ func deployment() klusterhelper.KubeResource {
 		MountVolume(configStorage, "/opt/couchdb/etc/default.d").
 		MountVolume(dataPVC, "/opt/couchdb/data").
 		AddEnvFromSecret(defaultLoginSecret).
-		WithLivenessProbe(defaults.NewDefaultProbe()).
-		WithReadinessProbe(defaults.NewDefaultProbe())
+		WithLivenessProbe(probe()).
+		WithReadinessProbe(probe())
 
 	deploy := defaults.
 		NewDeployment(name, namespace)
@@ -135,4 +137,17 @@ func secrets() klusterhelper.KubeResource {
 		},
 		"obsidian",
 	)
+}
+
+func probe() *corev1.Probe {
+	return &corev1.Probe{
+		ProbeHandler: corev1.ProbeHandler{
+			HTTPGet: &corev1.HTTPGetAction{
+				Path: "/_up",
+				Port: intstr.IntOrString{IntVal: servicePort},
+			},
+		},
+		TimeoutSeconds: 1,
+		PeriodSeconds:  10,
+	}
 }
