@@ -199,7 +199,7 @@ metadata:
 spec:
   dataFrom:
   - extract:
-      key: obsidian
+      key: volsync
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
