@@ -23,7 +23,7 @@ func NewFluxKS(name, namespace, subpath string) *klusterhelper.FluxKustomization
 			},
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      name,
-				Namespace: namespace,
+				Namespace: "flux-system",
 			},
 			Spec: fluxv1.KustomizationSpec{
 				TargetNamespace: namespace,
