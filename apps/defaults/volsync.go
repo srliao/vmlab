@@ -14,10 +14,10 @@ import (
 
 func NewVolsyncPVCResources(app, namespace, size string) []klusterhelper.KubeResource {
 	resources := []klusterhelper.KubeResource{
-		newBootstrap(app, size),
 		newVolsyncPVC(app, namespace, size),
-		newVolsyncES(app),
+		newBootstrap(app, size),
 		newVolsyncSource(app, size),
+		newVolsyncES(app),
 	}
 	return resources
 }
