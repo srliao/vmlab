@@ -11,6 +11,7 @@ import (
 	networkingv1 "k8s.io/api/networking/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 func NewFluxKS(name, namespace, subpath string) *klusterhelper.FluxKustomizationWrapper {
@@ -258,6 +259,19 @@ func NewPVC(claimName, namespace string, size string) *klusterhelper.PersistentV
 				},
 			},
 		},
+	}
+}
+
+func NewDefaultProbe() *corev1.Probe {
+	return &corev1.Probe{
+		ProbeHandler: corev1.ProbeHandler{
+			HTTPGet: &corev1.HTTPGetAction{
+				Path: "/healthcheck",
+				Port: intstr.IntOrString{IntVal: 80},
+			},
+		},
+		TimeoutSeconds: 1,
+		PeriodSeconds:  10,
 	}
 }
 

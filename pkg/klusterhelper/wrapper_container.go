@@ -76,3 +76,15 @@ func (c *ContainerWrapper) MountVolume(name, mountPath string) *ContainerWrapper
 	})
 	return c
 }
+func (c *ContainerWrapper) WithLivenessProbe(probe *corev1.Probe) *ContainerWrapper {
+	c.LivenessProbe = probe
+	return c
+}
+func (c *ContainerWrapper) WithReadinessProbe(probe *corev1.Probe) *ContainerWrapper {
+	c.ReadinessProbe = probe
+	return c
+}
+func (c *ContainerWrapper) WithStartupProbe(probe *corev1.Probe) *ContainerWrapper {
+	c.StartupProbe = probe
+	return c
+}

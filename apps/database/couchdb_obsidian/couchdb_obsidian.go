@@ -83,7 +83,9 @@ func deployment() klusterhelper.KubeResource {
 		WithMemoryLimit("1024Mi").
 		MountVolume(configStorage, "/opt/couchdb/etc/local.d").
 		MountVolume(dataPVC, "/opt/couchdb/data").
-		AddEnvFromSecret(defaultLoginSecret)
+		AddEnvFromSecret(defaultLoginSecret).
+		WithLivenessProbe(defaults.NewDefaultProbe()).
+		WithReadinessProbe(defaults.NewDefaultProbe())
 
 	deploy := defaults.
 		NewDeployment(name, namespace)

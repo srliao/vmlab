@@ -1,0 +1,20 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: couchdb-obsidian
+  namespace: database
+spec:
+  commonMetadata:
+    labels:
+      app: couchdb-obsidian
+      app.kubernetes.io/instance: couchdb-obsidian
+      app.kubernetes.io/managed-by: vmlab
+      app.kubernetes.io/name: couchdb-obsidian
+  interval: 10m0s
+  path: kubernetes/apps/database/couchdb_obsidian/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  targetNamespace: database
+  timeout: 5m0s

@@ -1,0 +1,239 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: couchdb-obsidian
+    app.kubernetes.io/instance: couchdb-obsidian
+    app.kubernetes.io/managed-by: vmlab
+    app.kubernetes.io/name: couchdb-obsidian
+  name: couchdb-obsidian
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: couchdb-obsidian
+      app.kubernetes.io/instance: couchdb-obsidian
+      app.kubernetes.io/managed-by: vmlab
+      app.kubernetes.io/name: couchdb-obsidian
+  template:
+    metadata:
+      labels:
+        app: couchdb-obsidian
+        app.kubernetes.io/instance: couchdb-obsidian
+        app.kubernetes.io/managed-by: vmlab
+        app.kubernetes.io/name: couchdb-obsidian
+    spec:
+      containers:
+      - envFrom:
+        - secretRef:
+            name: couchdb-obsidian-secrets
+        image: couchdb:sha256:2f27666c837cb9096c95e3cbd1c125651c0fa6a92594ffc9268671e4d065d6a9
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          periodSeconds: 10
+          timeoutSeconds: 1
+        name: couchdb-obsidian
+        ports:
+        - containerPort: 5984
+          hostPort: 5984
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          periodSeconds: 10
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 20m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /opt/couchdb/etc/local.d
+          name: config-storage
+        - mountPath: /opt/couchdb/data
+          name: data
+      initContainers:
+      - command:
+        - /bin/sh
+        - -c
+        - cp /tmp/config/*.ini /opt/couchdb/etc/default.d/; ls -lrt /opt/couchdb/etc/default.d;
+        image: busybox:latest
+        imagePullPolicy: IfNotPresent
+        name: init-config
+        volumeMounts:
+        - mountPath: /tmp/config
+          name: obsidian-couchdb-configmap
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          name: obsidian-couchdb-configmap
+        name: obsidian-couchdb-configmap
+      - name: config-storage
+      - name: data
+        persistentVolumeClaim:
+          claimName: couchdb-obsidian-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: couchdb-obsidian
+    app.kubernetes.io/instance: couchdb-obsidian
+    app.kubernetes.io/managed-by: vmlab
+    app.kubernetes.io/name: couchdb-obsidian
+  name: couchdb-obsidian
+  namespace: database
+spec:
+  ports:
+  - port: 5984
+    protocol: TCP
+    targetPort: 5984
+  selector:
+    app: couchdb-obsidian
+    app.kubernetes.io/instance: couchdb-obsidian
+    app.kubernetes.io/managed-by: vmlab
+    app.kubernetes.io/name: couchdb-obsidian
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: couchdb-obsidian
+    app.kubernetes.io/instance: couchdb-obsidian
+    app.kubernetes.io/managed-by: vmlab
+    app.kubernetes.io/name: couchdb-obsidian
+  name: couchdb-obsidian
+  namespace: database
+spec:
+  ingressClassName: internal
+  rules:
+  - host: couchdb-obsidian.winterspring.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: couchdb-obsidian
+            port:
+              number: 5984
+        path: /
+        pathType: Prefix
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: couchdb-obsidian
+spec:
+  dataFrom:
+  - extract:
+      key: obsidian
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: couchdb-obsidian-secrets
+    template:
+      data:
+        COUCHDB_PASSWORD: '{{ .OBSIDIAN_COUCHDB_PASSWORD }}'
+        COUCHDB_USER: '{{ .OBSIDIAN_COUCHDB_USER }}'
+      engineVersion: v2
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: couchdb-obsidian-bootstrap
+spec:
+  restic:
+    accessModes:
+    - ReadWriteOnce
+    cacheAccessModes:
+    - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: local-hostpath
+    capacity: 5Gi
+    copyMethod: Snapshot
+    moverSecurityContext:
+      fsGroup: 568
+      runAsGroup: 568
+      runAsUser: 568
+    repository: couchdb-obsidian-volsync-minio
+    storageClassName: local-hostpath
+    volumeSnapshotClassName: local-hostpath
+  trigger:
+    manual: restore-once-bootstrap
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: couchdb-obsidian
+  namespace: database
+spec:
+  accessModes:
+  - ReadWriteOnce
+  dataSource:
+    apiGroup: volsync.backube
+    kind: ReplicationDestination
+    name: couchdb-obsidian-bootstrap
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-hostpath
+  volumeMode: Filesystem
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: couchdb-obsidian-volsync-minio
+spec:
+  dataFrom:
+  - extract:
+      key: obsidian
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: volsync
+    template:
+      data:
+        AWS_ACCESS_KEY_ID: '{{ .AWS_ACCESS_KEY_ID }}'
+        AWS_SECRET_ACCESS_KEY: '{{ .AWS_SECRET_ACCESS_KEY }}'
+        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
+        RESTIC_REPOSITORY: s3:http://minio.lan/persistent-snapshots/couchdb-obsidian
+      engineVersion: v2
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: couchdb-obsidian-minio
+spec:
+  restic:
+    accessModes:
+    - ReadWriteOnce
+    cacheAccessModes:
+    - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: local-hostpath
+    copyMethod: Snapshot
+    moverSecurityContext:
+      fsGroup: 568
+      runAsGroup: 568
+      runAsUser: 568
+    pruneIntervalDays: 7
+    repository: couchdb-obsidian-volsync-minio
+    retain:
+      daily: 7
+      hourly: 24
+      weekly: 5
+    storageClassName: local-hostpath
+    volumeSnapshotClassName: local-hostpath
+  sourcePVC: couchdb-obsidian
+  trigger:
+    schedule: 0 * * * *
