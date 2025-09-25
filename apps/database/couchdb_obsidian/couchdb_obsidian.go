@@ -74,19 +74,19 @@ func deployment() klusterhelper.KubeResource {
 			"-c",
 			"cp /tmp/config/*.ini /opt/couchdb/etc/default.d/; ls -lrt /opt/couchdb/etc/default.d;",
 		).
-		MountVolume(configIniMapName, "/tmp/config").
-		MountVolume(configStorage, "/opt/couchdb/etc/default.d").
-		MountVolume(dataPVC, "/opt/couchdb/data")
+		AddVolumeMount(configIniMapName, "/tmp/config").
+		AddVolumeMount(configStorage, "/opt/couchdb/etc/default.d").
+		AddVolumeMount(dataPVC, "/opt/couchdb/data")
 
 	// app container
 	container := defaults.
 		NewContainer(name, imageSpec).
-		WithPort(servicePort).
+		AddPort(servicePort).
 		WithCPURequest("20m").
 		WithMemoryRequest("512Mi").
 		WithMemoryLimit("1024Mi").
-		MountVolume(configStorage, "/opt/couchdb/etc/default.d").
-		MountVolume(dataPVC, "/opt/couchdb/data").
+		AddVolumeMount(configStorage, "/opt/couchdb/etc/default.d").
+		AddVolumeMount(dataPVC, "/opt/couchdb/data").
 		AddEnvFromSecret(defaultLoginSecret).
 		WithLivenessProbe(probe()).
 		WithReadinessProbe(probe())

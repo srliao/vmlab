@@ -34,7 +34,7 @@ func Labels(name string) map[string]string {
 }
 
 func AddReloaderAnnotation[K any](a klusterhelper.Annotatable[K]) {
-	a.WithAnnotations(map[string]string{
+	a.MergeAnnotations(map[string]string{
 		"reloader.stakater.com/auto": "true",
 	})
 }

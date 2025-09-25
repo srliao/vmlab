@@ -11,17 +11,22 @@ type DeploymentWrapper struct {
 }
 
 var _ KubeResource = &DeploymentWrapper{}
+var _ Annotatable[*DeploymentWrapper] = &DeploymentWrapper{}
 
 func (d *DeploymentWrapper) validate() error          { return nil }
 func (d *DeploymentWrapper) marshal() ([]byte, error) { return marshalCleanYAML(d.Deployment) }
 func (d *DeploymentWrapper) PodTemplate() *PodTemplateSpecWrapper {
 	return &PodTemplateSpecWrapper{&d.Spec.Template}
 }
-func (d *DeploymentWrapper) WithAnnotations(annotations map[string]string) *DeploymentWrapper {
+func (d *DeploymentWrapper) MergeAnnotations(annotations map[string]string) *DeploymentWrapper {
 	if d.Annotations == nil {
 		d.Annotations = make(map[string]string)
 	}
 	maps.Copy(d.Annotations, annotations)
+	return d
+}
+func (d *DeploymentWrapper) WithAnnotations(annotations map[string]string) *DeploymentWrapper {
+	d.Annotations = annotations
 	return d
 }
 func (d *DeploymentWrapper) WithReplicas(replicas int32) *DeploymentWrapper {

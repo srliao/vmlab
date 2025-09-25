@@ -13,11 +13,21 @@ type KustomizationWrapper struct {
 
 func (k *KustomizationWrapper) validate() error          { return nil }
 func (k *KustomizationWrapper) marshal() ([]byte, error) { return yaml.Marshal(k) }
+
 func (k *KustomizationWrapper) AddResources(resources []string) *KustomizationWrapper {
 	k.Kustomization.Resources = append(k.Kustomization.Resources, resources...)
 	return k
 }
+
 func (k *KustomizationWrapper) WithAnnotations(annotations map[string]string) *KustomizationWrapper {
+	if k.Kustomization.MetaData == nil {
+		k.Kustomization.MetaData = &types.ObjectMeta{}
+	}
+	k.Kustomization.MetaData.Annotations = annotations
+	return k
+}
+
+func (k *KustomizationWrapper) MergeAnnotations(annotations map[string]string) *KustomizationWrapper {
 	if k.Kustomization.MetaData == nil {
 		k.Kustomization.MetaData = &types.ObjectMeta{}
 	}
@@ -27,6 +37,7 @@ func (k *KustomizationWrapper) WithAnnotations(annotations map[string]string) *K
 	maps.Copy(k.Kustomization.MetaData.Annotations, annotations)
 	return k
 }
+
 func (k *KustomizationWrapper) AddConfigMapGeneratorFromFiles(name string, file ...string) *KustomizationWrapper {
 	k.Kustomization.ConfigMapGenerator = append(k.Kustomization.ConfigMapGenerator, types.ConfigMapArgs{
 		GeneratorArgs: types.GeneratorArgs{

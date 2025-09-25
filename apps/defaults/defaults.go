@@ -226,9 +226,7 @@ func NewESWithDataAndKey(name, target string, data map[string]string, keys ...st
 			},
 		},
 	}
-	for k, v := range data {
-		es.AddDataToTemplate(k, v)
-	}
+	es.AddMapDataToTemplate(data)
 	for _, k := range keys {
 		es.AddExternalDataFromKeyExtract(k)
 	}

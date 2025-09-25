@@ -14,10 +14,12 @@ var _ KubeResource = &ServiceWrapper{}
 
 func (s *ServiceWrapper) validate() error          { return nil }
 func (s *ServiceWrapper) marshal() ([]byte, error) { return yaml.Marshal(s.Service) }
+
 func (s *ServiceWrapper) WithSelector(labels map[string]string) *ServiceWrapper {
 	s.Spec.Selector = labels
 	return s
 }
+
 func (s *ServiceWrapper) AddPort(port, targetPort int32, protocol corev1.Protocol) *ServiceWrapper {
 	s.Spec.Ports = append(s.Spec.Ports, corev1.ServicePort{
 		Port:       port,
@@ -26,6 +28,7 @@ func (s *ServiceWrapper) AddPort(port, targetPort int32, protocol corev1.Protoco
 	})
 	return s
 }
+
 func (s *ServiceWrapper) WithServiceType(serviceType corev1.ServiceType) *ServiceWrapper {
 	s.Spec.Type = serviceType
 	return s

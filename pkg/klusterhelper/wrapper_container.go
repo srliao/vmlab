@@ -9,10 +9,18 @@ type ContainerWrapper struct {
 	*corev1.Container
 }
 
-func (c *ContainerWrapper) WithPort(port int32) *ContainerWrapper {
+func (c *ContainerWrapper) AddPort(port int32) *ContainerWrapper {
 	c.Ports = append(c.Ports, corev1.ContainerPort{
 		ContainerPort: port,
 	})
+	return c
+}
+func (c *ContainerWrapper) WithPorts(ports ...int32) *ContainerWrapper {
+	for _, port := range ports {
+		c.Ports = append(c.Ports, corev1.ContainerPort{
+			ContainerPort: port,
+		})
+	}
 	return c
 }
 func (c *ContainerWrapper) WithCPULimit(cpu string) *ContainerWrapper {
@@ -50,6 +58,15 @@ func (c *ContainerWrapper) AddEnvVar(name, value string) *ContainerWrapper {
 	})
 	return c
 }
+func (c *ContainerWrapper) WithEnvVars(vars map[string]string) *ContainerWrapper {
+	for k, v := range vars {
+		c.Env = append(c.Env, corev1.EnvVar{
+			Name:  k,
+			Value: v,
+		})
+	}
+	return c
+}
 func (c *ContainerWrapper) AddEnvFromSecret(name string) *ContainerWrapper {
 	c.EnvFrom = append(c.EnvFrom, corev1.EnvFromSource{
 		SecretRef: &corev1.SecretEnvSource{
@@ -68,7 +85,7 @@ func (c *ContainerWrapper) AddCommands(commands ...string) *ContainerWrapper {
 	c.Command = append(c.Command, commands...)
 	return c
 }
-func (c *ContainerWrapper) MountVolume(name, mountPath string) *ContainerWrapper {
+func (c *ContainerWrapper) AddVolumeMount(name, mountPath string) *ContainerWrapper {
 	c.VolumeMounts = append(c.VolumeMounts, corev1.VolumeMount{
 		Name:      name,
 		MountPath: mountPath,

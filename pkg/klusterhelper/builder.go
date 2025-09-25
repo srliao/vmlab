@@ -15,6 +15,7 @@ type KubeResource interface {
 }
 
 type Annotatable[K any] interface {
+	MergeAnnotations(annotations map[string]string) K
 	WithAnnotations(annotations map[string]string) K
 }
 
