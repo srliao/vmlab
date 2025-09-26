@@ -86,7 +86,7 @@ spec:
     node:
       driver:
         image:
-          registry: ghcr.io/democraticcsi/democratic-csi
+          registry: ghcr.io/democratic-csi/democratic-csi
           tag: v1.9.3
         driverRegistrar:
           enabled: true
