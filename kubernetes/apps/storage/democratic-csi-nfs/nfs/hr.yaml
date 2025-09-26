@@ -66,8 +66,8 @@ spec:
           # shareHost:shareBasePath should be mounted at this location in the controller container
           controllerBasePath: "/var/mnt/persistent/democratic-csi-nfs"
           dirPermissionsMode: "0777"
-          dirPermissionsUser: root
-          dirPermissionsGroup: wheel
+          dirPermissionsUser: 105000
+          dirPermissionsGroup: 105000
 
     controller:
       enabled: true
