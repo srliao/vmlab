@@ -39,7 +39,7 @@ func Chart() *klusterhelper.App {
 	ks := defaults.NewFluxKS(name, namespace, subpath)
 	ks.WithDependsOn([]fluxmeta.NamespacedObjectReference{
 		{
-			Name: "externa-secrets-stores",
+			Name: "external-secrets-stores",
 		},
 		{
 			Name: "volsync",

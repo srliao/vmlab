@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/managed-by: vmlab
       app.kubernetes.io/name: couchdb-obsidian
   dependsOn:
-  - name: externa-secrets-stores
+  - name: external-secrets-stores
   - name: volsync
   - name: democratic-csi-local-path
   interval: 10m0s
