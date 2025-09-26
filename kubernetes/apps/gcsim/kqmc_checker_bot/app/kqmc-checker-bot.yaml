@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kqmc-checker-bot
+    app.kubernetes.io/instance: kqmc-checker-bot
+    app.kubernetes.io/managed-by: vmlab
+    app.kubernetes.io/name: kqmc-checker-bot
+  name: kqmc-checker-bot
+  namespace: gcsim
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: kqmc-checker-bot
+      app.kubernetes.io/instance: kqmc-checker-bot
+      app.kubernetes.io/managed-by: vmlab
+      app.kubernetes.io/name: kqmc-checker-bot
+  template:
+    metadata:
+      labels:
+        app: kqmc-checker-bot
+        app.kubernetes.io/instance: kqmc-checker-bot
+        app.kubernetes.io/managed-by: vmlab
+        app.kubernetes.io/name: kqmc-checker-bot
+    spec:
+      containers:
+      - envFrom:
+        - secretRef:
+            name: kqmc-checker-bot-secrets
+        image: ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop:rolling@sha256:b3d13f9d0d54f7fabed3b62d36847f3f1585b3ba1f0f04be6e8ea5d8587c10fd
+        imagePullPolicy: IfNotPresent
+        name: kqmc-checker-bot
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 20m
+            memory: 512Mi
+      restartPolicy: Always
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: kqmc-checker-bot
+spec:
+  dataFrom:
+  - extract:
+      key: gcsim
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: kqmc-checker-bot-secrets
+    template:
+      data:
+        DISCORD_TOKEN: '{{ .KQMC_CHECKER_BOT_DISCORD_TOKEN }}'
+      engineVersion: v2

@@ -1,0 +1,22 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kqmc-checker-bot
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app: kqmc-checker-bot
+      app.kubernetes.io/instance: kqmc-checker-bot
+      app.kubernetes.io/managed-by: vmlab
+      app.kubernetes.io/name: kqmc-checker-bot
+  dependsOn:
+  - name: external-secrets-stores
+  interval: 10m0s
+  path: kubernetes/apps/gcsim/kqmc_checker_bot/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  targetNamespace: gcsim
+  timeout: 5m0s
