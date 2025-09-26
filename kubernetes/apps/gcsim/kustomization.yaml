@@ -8,3 +8,4 @@ resources:
   - ./gcsim-preview/ks.yaml
   - ./gcsim-rod/ks.yaml
   - ./gcsim-assets/ks.yaml
+  - ./kqmc_checker_bot/ks.yaml
