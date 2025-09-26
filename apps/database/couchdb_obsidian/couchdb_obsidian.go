@@ -5,6 +5,7 @@ import (
 
 	_ "embed"
 
+	fluxmeta "github.com/fluxcd/pkg/apis/meta"
 	"github.com/srliao/vmlab/apps/defaults"
 	"github.com/srliao/vmlab/pkg/klusterhelper"
 	corev1 "k8s.io/api/core/v1"
@@ -35,9 +36,22 @@ func Chart() *klusterhelper.App {
 		log.Panicf("getting subpath failed for %v/%v: %v", name, namespace, err)
 	}
 
+	ks := defaults.NewFluxKS(name, namespace, subpath)
+	ks.WithDependsOn([]fluxmeta.NamespacedObjectReference{
+		{
+			Name: "externa-secrets-stores",
+		},
+		{
+			Name: "volsync",
+		},
+		{
+			Name: "democratic-csi-local-path",
+		},
+	})
+
 	c := klusterhelper.
 		NewApp(name, namespace, subpath).
-		SetKS(defaults.NewFluxKS(name, namespace, subpath)).
+		SetKS(ks).
 		AddObjects(
 			deployment(),
 			service(),
