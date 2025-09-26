@@ -8,6 +8,7 @@ import (
 	fluxmeta "github.com/fluxcd/pkg/apis/meta"
 	"github.com/srliao/vmlab/apps/defaults"
 	"github.com/srliao/vmlab/pkg/klusterhelper"
+	corev1 "k8s.io/api/core/v1"
 )
 
 const (
@@ -19,7 +20,7 @@ const (
 
 var imageSpec = &klusterhelper.ImageSpec{
 	Repository: "ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop",
-	Tag:        "rolling@sha256:db444fcdd6bb657c0c7731cfbe26004ba881d83da6c65f1b8ff56eb33dfa91ab",
+	Tag:        "rolling@sha256:3fc4c73303d11b98466150bb8a85df452104e632ffc4e06df06050b58421b8d1",
 }
 
 func Chart() *klusterhelper.App {
@@ -55,7 +56,7 @@ func deployment() klusterhelper.KubeResource {
 		WithMemoryRequest("512Mi").
 		WithMemoryLimit("1024Mi").
 		AddEnvFromSecret(discordSecret).
-		AddCommands("python3 /usr/src/app/KQMCCheckerDiscordBot.py")
+		WithImagePullPolicy(corev1.PullAlways)
 
 	deploy := defaults.
 		NewDeployment(name, namespace)

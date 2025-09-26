@@ -27,13 +27,11 @@ spec:
         app.kubernetes.io/name: kqmc-checker-bot
     spec:
       containers:
-      - command:
-        - python3 /usr/src/app/KQMCCheckerDiscordBot.py
-        envFrom:
+      - envFrom:
         - secretRef:
             name: kqmc-checker-bot-secrets
-        image: ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop:rolling@sha256:db444fcdd6bb657c0c7731cfbe26004ba881d83da6c65f1b8ff56eb33dfa91ab
-        imagePullPolicy: IfNotPresent
+        image: ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop:rolling@sha256:3fc4c73303d11b98466150bb8a85df452104e632ffc4e06df06050b58421b8d1
+        imagePullPolicy: Always
         name: kqmc-checker-bot
         resources:
           limits:
