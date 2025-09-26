@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/storage/democratic-csi-nfs/zfs-nfs
+  path: ./kubernetes/apps/storage/democratic-csi-nfs/nfs
   prune: true
   sourceRef:
     kind: GitRepository
