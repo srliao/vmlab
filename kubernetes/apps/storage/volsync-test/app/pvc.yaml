@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: volsync-test
 spec:
-  storageClassName: local-hostpath
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
