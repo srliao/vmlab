@@ -73,6 +73,9 @@ spec:
       enabled: true
       strategy: deployment
 
+      externalResizer:
+        enabled: false
+
       driver:
         securityContext:
           allowPrivilegeEscalation: true
