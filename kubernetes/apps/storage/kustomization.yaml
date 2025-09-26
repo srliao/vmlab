@@ -10,4 +10,3 @@ resources:
   - ./volsync/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./volsync-test/ks.yaml
-  - ./volsync-test-nfs/ks.yaml
