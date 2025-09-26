@@ -27,7 +27,9 @@ spec:
         app.kubernetes.io/name: kqmc-checker-bot
     spec:
       containers:
-      - envFrom:
+      - command:
+        - python3 /usr/src/app/KQMCCheckerDiscordBot.py
+        envFrom:
         - secretRef:
             name: kqmc-checker-bot-secrets
         image: ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop:rolling@sha256:b3d13f9d0d54f7fabed3b62d36847f3f1585b3ba1f0f04be6e8ea5d8587c10fd

@@ -54,7 +54,8 @@ func deployment() klusterhelper.KubeResource {
 		WithCPURequest("20m").
 		WithMemoryRequest("512Mi").
 		WithMemoryLimit("1024Mi").
-		AddEnvFromSecret(discordSecret)
+		AddEnvFromSecret(discordSecret).
+		AddCommands("python3 /usr/src/app/KQMCCheckerDiscordBot.py")
 
 	deploy := defaults.
 		NewDeployment(name, namespace)
