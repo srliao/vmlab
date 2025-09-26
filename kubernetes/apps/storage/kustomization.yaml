@@ -8,3 +8,4 @@ resources:
   - ./democratic-csi/ks.yaml
   - ./volsync/ks.yaml
   - ./snapshot-controller/ks.yaml
+  - ./volsync-test/ks.yaml
