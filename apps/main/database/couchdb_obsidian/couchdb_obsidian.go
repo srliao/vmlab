@@ -15,7 +15,6 @@ import (
 const (
 	name               = "couchdb-obsidian"
 	namespace          = "database"
-	component          = "database"
 	servicePort        = 5984
 	configIniMapName   = "obsidian-couchdb-configmap"
 	defaultLoginSecret = "couchdb-obsidian-secrets"

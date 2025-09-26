@@ -14,7 +14,6 @@ import (
 const (
 	name          = "kqmc-checker-bot"
 	namespace     = "gcsim"
-	component     = "gcsim"
 	discordSecret = "kqmc-checker-bot-secrets"
 )
 

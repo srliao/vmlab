@@ -13,7 +13,7 @@ var srcRef = fluxv1.CrossNamespaceSourceReference{
 }
 
 const (
-	gitRepoBasePath = "vmlab/apps"
+	gitRepoBasePath = "vmlab/apps/main"
 	fluxKSBasePath  = "./kubernetes/apps"
 
 	defaultFluxReconcileInterval = time.Minute * 10
