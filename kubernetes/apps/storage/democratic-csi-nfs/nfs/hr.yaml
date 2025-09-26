@@ -62,7 +62,7 @@ spec:
         instance_id:
         nfs:
           shareHost: 192.168.100.5
-          shareBasePath: "/storage/democratic-csi-nfs"
+          shareBasePath: "/storage/democratic-csi"
           # shareHost:shareBasePath should be mounted at this location in the controller container
           controllerBasePath: "/var/mnt/persistent/democratic-csi-nfs"
           dirPermissionsMode: "0777"
