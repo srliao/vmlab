@@ -5,7 +5,7 @@ import (
 
 	_ "embed"
 
-	fluxmeta "github.com/fluxcd/pkg/apis/meta"
+	fluxv1 "github.com/fluxcd/kustomize-controller/api/v1"
 	"github.com/srliao/vmlab/apps/defaults"
 	"github.com/srliao/vmlab/pkg/klusterhelper"
 	corev1 "k8s.io/api/core/v1"
@@ -36,7 +36,7 @@ func Chart() *klusterhelper.App {
 	}
 
 	ks := defaults.NewFluxKS(name, namespace, subpath)
-	ks.WithDependsOn([]fluxmeta.NamespacedObjectReference{
+	ks.WithDependsOn([]fluxv1.DependencyReference{
 		{
 			Name: "external-secrets-stores",
 		},

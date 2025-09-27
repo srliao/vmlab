@@ -4,7 +4,6 @@ import (
 	"path/filepath"
 
 	fluxv1 "github.com/fluxcd/kustomize-controller/api/v1"
-	fluxmeta "github.com/fluxcd/pkg/apis/meta"
 )
 
 type FluxKustomizationWrapper struct {
@@ -23,7 +22,7 @@ func (f *FluxKustomizationWrapper) WithPath(base, subpath string) *FluxKustomiza
 	f.subpath = subpath
 	return f
 }
-func (f *FluxKustomizationWrapper) WithDependsOn(deps []fluxmeta.NamespacedObjectReference) *FluxKustomizationWrapper {
+func (f *FluxKustomizationWrapper) WithDependsOn(deps []fluxv1.DependencyReference) *FluxKustomizationWrapper {
 	f.Kustomization.Spec.DependsOn = deps
 	return f
 }
