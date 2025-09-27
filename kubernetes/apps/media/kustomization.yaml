@@ -17,7 +17,6 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./filebrowser/ks.yaml
-  - ./openbooks/ks.yaml
   - ./kavita/ks.yaml
   - ./metube/ks.yaml
   - ./rclone-sync/ks.yaml
