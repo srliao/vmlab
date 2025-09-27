@@ -9,4 +9,4 @@ resources:
   - ./democratic-csi-nfs/ks.yaml
   - ./volsync/ks.yaml
   - ./snapshot-controller/ks.yaml
-  - ./volsync-test/ks.yaml
+  # - ./volsync-test/ks.yaml
