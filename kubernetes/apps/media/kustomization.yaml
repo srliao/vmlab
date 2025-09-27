@@ -10,7 +10,6 @@ resources:
   - ./sonarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./plex/ks.yaml
-  - ./overseerr/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./sabnzbd/ks.yaml
