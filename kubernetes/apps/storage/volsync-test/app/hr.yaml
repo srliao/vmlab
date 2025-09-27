@@ -70,5 +70,5 @@ spec:
 
     persistence:
       data:
-        existingClaim: volsync-test
+        existingClaim: volsync-test-migrate
 
