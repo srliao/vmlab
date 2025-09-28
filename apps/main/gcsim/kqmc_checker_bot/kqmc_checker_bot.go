@@ -19,7 +19,7 @@ const (
 
 var imageSpec = &klusterhelper.ImageSpec{
 	Repository: "ghcr.io/charlie-zheng/gcsim-kqmc-checker-develop",
-	Tag:        "rolling@sha256:0ef7bf7890a1fc99e7c88ddb1fd63947c8dff67ee1993888a5077bf9c0bcde76",
+	Tag:        "rolling@sha256:9a37d56de0f34e1afd560a9d35566283d65c814a5f8f48481b2094ce71f9e6c7",
 }
 
 func Chart() *klusterhelper.App {
