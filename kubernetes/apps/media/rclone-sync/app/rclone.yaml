@@ -9,7 +9,7 @@ spec:
   schedule: "*/2 * * * *"
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 45
-  # ttlSecondsAfterFinished: 100
+  ttlSecondsAfterFinished: 7200
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 2
   jobTemplate:
