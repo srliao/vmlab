@@ -10,4 +10,4 @@ resources:
   - ./sshwifty/ks.yaml
   - ./mealie/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./frigate-notify/ks.yaml
+  # - ./frigate-notify/ks.yaml
