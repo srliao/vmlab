@@ -6,9 +6,9 @@ require (
 	github.com/backube/volsync v0.13.1
 	github.com/external-secrets/external-secrets v0.20.1
 	github.com/fluxcd/kustomize-controller/api v1.7.0
-	github.com/fluxcd/pkg/apis/meta v1.21.0
+	github.com/fluxcd/pkg/apis/meta v1.23.0
 	k8s.io/api v0.34.1
-	k8s.io/apimachinery v0.34.1
+	k8s.io/apimachinery v0.34.2
 	sigs.k8s.io/controller-runtime v0.22.1
 	sigs.k8s.io/kustomize/api v0.20.1
 	sigs.k8s.io/yaml v1.6.0
@@ -59,7 +59,7 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/net v0.44.0 // indirect
+	golang.org/x/net v0.45.0 // indirect
 	golang.org/x/oauth2 v0.31.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
