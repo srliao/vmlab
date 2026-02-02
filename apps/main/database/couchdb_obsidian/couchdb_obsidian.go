@@ -23,7 +23,7 @@ const (
 
 var imageSpec = &klusterhelper.ImageSpec{
 	Repository: "docker.io/library/couchdb",
-	Tag:        "3.5.0",
+	Tag:        "3.5.1",
 }
 
 //go:embed config.ini
