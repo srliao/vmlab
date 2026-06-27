@@ -33,7 +33,7 @@ spec:
           volume-permissions:
             image:
               repository: dpage/pgadmin4
-              tag: 9.8@sha256:d115bcd737940a6cfb61a54439d50de8b850e0782e2363102c9fa761f4022f49
+              tag: 9.16@sha256:40fa840c5bb7c8463957f1255b01283732c2d8c9396a956d180f8e6c296753b3
             command: [/bin/chown, -R, 5050:5050, /var/lib/pgadmin]
             securityContext:
               runAsUser: 0
@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: dpage/pgadmin4
-              tag: 9.8@sha256:d115bcd737940a6cfb61a54439d50de8b850e0782e2363102c9fa761f4022f49
+              tag: 9.16@sha256:40fa840c5bb7c8463957f1255b01283732c2d8c9396a956d180f8e6c296753b3
             env:
               PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
               TZ: America/Toronto
