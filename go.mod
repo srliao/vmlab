@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/backube/volsync v0.13.1
-	github.com/external-secrets/external-secrets v0.20.1
+	github.com/external-secrets/external-secrets v1.3.2
 	github.com/fluxcd/kustomize-controller/api v1.7.0
 	github.com/fluxcd/pkg/apis/meta v1.21.0
 	k8s.io/api v0.34.1
