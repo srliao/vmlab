@@ -3,6 +3,7 @@
 # go2rtc itself expands it from the env vars supplied by the go2rtc-secret.
 streams:
   frontdoor: $${FRONTDOOR_RTSP_URL}
+  frontdoor_h264: "ffmpeg:frontdoor#video=h264#audio=aac#audio=opus"
 
 api:
   listen: ":1984"
