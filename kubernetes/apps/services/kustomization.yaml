@@ -10,5 +10,4 @@ resources:
   - ./sshwifty/ks.yaml
   - ./mealie/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./go2rtc/ks.yaml
   # - ./frigate-notify/ks.yaml
