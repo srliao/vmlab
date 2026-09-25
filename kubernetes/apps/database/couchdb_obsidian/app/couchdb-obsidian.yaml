@@ -131,7 +131,7 @@ spec:
         path: /
         pathType: Prefix
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: couchdb-obsidian
@@ -221,7 +221,7 @@ spec:
   trigger:
     schedule: 0 * * * *
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: couchdb-obsidian-volsync-minio
