@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/suwayomi/tachidesk
-              tag: v2.1.1941@sha256:91239224c6360e2f5bed5215655745a79e7998400b4aeb9023f80fbcc3d771e1
+              tag: v2.4.2376@sha256:2e709b5baffc1a72381a731a8b8b8d68be888d5e48d4e182600c7e180f84d4bf
             env:
               TZ: America/Toronto
             resources:
