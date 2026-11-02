@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   # Flux Kustomizations
-  - ./gcsim-preview/ks.yaml
-  - ./gcsim-rod/ks.yaml
-  - ./gcsim-assets/ks.yaml
-  - ./kqmc_checker_bot/ks.yaml
+  # - ./gcsim-preview/ks.yaml
+  # - ./gcsim-rod/ks.yaml
+  # - ./gcsim-assets/ks.yaml
+  # - ./kqmc_checker_bot/ks.yaml
