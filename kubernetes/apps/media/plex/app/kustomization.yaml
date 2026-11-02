@@ -6,3 +6,10 @@ resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
   - ../../../../templates/volsync
+patches:
+  - target:
+      kind: ReplicationSource
+    patch: |-
+      - op: add
+        path: /spec/paused
+        value: true
